@@ -54,7 +54,7 @@ Use the templates in `docs/` rather than inventing new process.
   - Compare tools using `docs/10-Appendix_I_Comparison_Report_Template.md`.
 
 ## Repository note (migration context)
-- `petstore/` contains the prior Pet Store challenge docs used as the starting point for this migration.
+- This PawMate spec was derived from a prior **Pet Store** benchmarking harness.
 - The **PawMate** canonical spec lives in `docs/` at the repository root.
 
 

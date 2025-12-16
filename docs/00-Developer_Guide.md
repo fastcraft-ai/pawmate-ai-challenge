@@ -72,6 +72,6 @@ Global guardrails to preserve across all work:
 - **No external integrations**; **privacy is out of scope**.
 
 ## Note on legacy Pet Store docs
-This repository also contains `petstore/` as the prior challenge reference. The PawMate source of truth is `docs/` at the repository root.
+This PawMate spec was derived from a prior Pet Store benchmarking harness. The PawMate source of truth is `docs/` at the repository root.
 
 

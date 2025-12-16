@@ -130,7 +130,7 @@ copy/paste content and recordkeeping.
 
 NOTE ON LEGACY CONTENT
 ----------------------
-The folder petstore/ contains the older Pet Store challenge docs that PawMate was derived from.
+This PawMate spec was derived from a prior Pet Store benchmarking harness.
 The PawMate source of truth is the root docs/ folder.
 
 
