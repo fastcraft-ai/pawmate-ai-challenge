@@ -8,11 +8,21 @@ It is **not** an application implementation repo. It provides the *frozen spec i
 PawMate is an ethical pet **adoption management** domain:
 **Helping animals find homes—and people find friends**.
 
-This challenge is designed to be harder than a commerce catalog by adding:
-- **Animal lifecycle state machines**
-- **Decision workflows**
-- **Policy enforcement**
-- **Decision transparency / explainability**
+### Models (what “Model A / Model B” mean)
+- **Model A (Minimum)**: baseline required capability set.
+- **Model B (Full)**: **Model A + additional deltas** (e.g., auth/roles and search), as defined in `docs/Master_Functional_Spec.md`.
+
+This benchmark spec intentionally includes **domain constraints that are mandatory and observable via the API** (these apply to the spec overall, for both **Model A** and **Model B**).
+This includes:
+- **Animal lifecycle state machine (enforced)**: animals are not products; status transitions are constrained and invalid transitions must be rejected.
+- **Decision workflow (multi-step)**: adoption is **submit → evaluate → staff decision**, not “add to cart → checkout”.
+- **Policy enforcement (explicit)**: the contract must define key policies (e.g., single vs multiple active applications) and enforce ethics constraints (e.g., protected-class non-discrimination inputs).
+- **Decision transparency + auditability**: evaluations/decisions require **human-readable explanations** and actions must be recorded as **append-only history events**.
+
+### Why this benchmark is non-trivial (high level)
+- **API as system of record**: required behaviors must be observable via API operations and the contract artifact.
+- **Enforced lifecycle + decisions**: state transitions and decision steps are constrained, validated, and auditable.
+- **Determinism**: implementations must support reset-to-seed and deterministic collection ordering for repeatable runs.
 
 ## Quick Start (5 steps)
 
