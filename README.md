@@ -178,8 +178,5 @@ All artifacts should be saved in the run folder (`runs/YYYYMMDDTHHmm/`):
 - Score using `docs/Scoring_Rubric.md` (grounded in `docs/Benchmarking_Method.md` metrics/evidence).
 - Compare tools using `docs/Comparison_Report_Template.md`.
 
-## Repository note (migration context)
-- This PawMate spec was derived from a prior **Pet Store** benchmarking harness.
+## Repository note
 - The **PawMate** canonical spec lives in `docs/` at the repository root.
-
-

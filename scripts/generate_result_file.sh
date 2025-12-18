@@ -125,62 +125,89 @@ if command -v git &> /dev/null && git -C "$REPO_ROOT" rev-parse --git-dir &> /de
     fi
 fi
 
-# Try to extract metrics from AI run report if it exists
-TTFR_START=""
-TTFR_END=""
-TTFR_MINUTES="Unknown"
-TTFC_START=""
-TTFC_END=""
-TTFC_MINUTES="Unknown"
-CLARIFICATIONS_COUNT="Unknown"
-INTERVENTIONS_COUNT="Unknown"
-RERUNS_COUNT="Unknown"
-ACCEPTANCE_PASS_COUNT="Unknown"
-ACCEPTANCE_FAIL_COUNT="Unknown"
-ACCEPTANCE_NOT_RUN_COUNT="Unknown"
-ACCEPTANCE_PASSRATE="Unknown"
-DETERMINISM_COMPLIANCE="Unknown"
-OVERREACH_INCIDENTS_COUNT="Unknown"
-CONTRACT_COMPLETENESS_PASSRATE="Unknown"
-INSTRUCTIONS_QUALITY_RATING="Unknown"
-REPRODUCIBILITY_RATING="Unknown"
+# Extract metrics from AI run report if it exists
+GENERATION_STARTED=""
+CODE_COMPLETE=""
+BUILD_CLEAN=""
+SEED_LOADED=""
+APP_STARTED=""
+ALL_TESTS_PASS=""
+TOTAL_MINUTES=""
+TEST_TOTAL=""
+TEST_PASSED=""
+TEST_FAILED=""
+TEST_PASS_RATE=""
+BACKEND_RUNTIME=""
+BACKEND_FRAMEWORK=""
+DATABASE=""
 
 if [[ -f "$AI_RUN_REPORT" ]]; then
-    # Extract timestamps from AI run report
-    if grep -q "generation_started:" "$AI_RUN_REPORT"; then
-        TTFR_START=$(grep "generation_started:" "$AI_RUN_REPORT" | head -1 | sed 's/.*generation_started: *//' | tr -d '[:space:]')
-        TTFC_START="$TTFR_START"
+    # Extract all timestamps from AI run report (handle markdown backticks and list format)
+    # Pattern: - `field_name`: timestamp (need to match first colon after field name)
+    if grep -q "generation_started" "$AI_RUN_REPORT"; then
+        GENERATION_STARTED=$(grep "generation_started" "$AI_RUN_REPORT" | head -1 | sed 's/.*`generation_started`: *//' | sed 's/`//g' | sed 's/ (.*//' | tr -d '[:space:]')
     fi
     
-    if grep -q "first_runnable:" "$AI_RUN_REPORT"; then
-        TTFR_END=$(grep "first_runnable:" "$AI_RUN_REPORT" | head -1 | sed 's/.*first_runnable: *//' | tr -d '[:space:]')
+    if grep -q "code_complete" "$AI_RUN_REPORT"; then
+        CODE_COMPLETE=$(grep "code_complete" "$AI_RUN_REPORT" | head -1 | sed 's/.*`code_complete`: *//' | sed 's/`//g' | sed 's/ (.*//' | tr -d '[:space:]')
     fi
     
-    if grep -q "feature_complete:" "$AI_RUN_REPORT"; then
-        TTFC_END=$(grep "feature_complete:" "$AI_RUN_REPORT" | head -1 | sed 's/.*feature_complete: *//' | tr -d '[:space:]')
+    if grep -q "build_clean" "$AI_RUN_REPORT"; then
+        BUILD_CLEAN=$(grep "build_clean" "$AI_RUN_REPORT" | head -1 | sed 's/.*`build_clean`: *//' | sed 's/`//g' | sed 's/ (.*//' | tr -d '[:space:]')
     fi
     
-    # Calculate minutes if we have both timestamps
-    if [[ -n "$TTFR_START" && -n "$TTFR_END" ]]; then
+    if grep -q "seed_loaded" "$AI_RUN_REPORT"; then
+        SEED_LOADED=$(grep "seed_loaded" "$AI_RUN_REPORT" | head -1 | sed 's/.*`seed_loaded`: *//' | sed 's/`//g' | sed 's/ (.*//' | tr -d '[:space:]')
+    fi
+    
+    if grep -q "app_started" "$AI_RUN_REPORT"; then
+        APP_STARTED=$(grep "app_started" "$AI_RUN_REPORT" | head -1 | sed 's/.*`app_started`: *//' | sed 's/`//g' | sed 's/ (.*//' | tr -d '[:space:]')
+    fi
+    
+    if grep -q "all_tests_pass" "$AI_RUN_REPORT"; then
+        ALL_TESTS_PASS=$(grep "all_tests_pass" "$AI_RUN_REPORT" | head -1 | sed 's/.*`all_tests_pass`: *//' | sed 's/`//g' | sed 's/ (.*//' | tr -d '[:space:]')
+    fi
+    
+    # Calculate total minutes from generation_started to all_tests_pass
+    if [[ -n "$GENERATION_STARTED" && -n "$ALL_TESTS_PASS" ]]; then
         if command -v python3 &> /dev/null; then
-            TTFR_MINUTES=$(python3 -c "
+            TOTAL_MINUTES=$(python3 -c "
 from datetime import datetime
-start = datetime.fromisoformat('${TTFR_START}'.replace('Z', '+00:00'))
-end = datetime.fromisoformat('${TTFR_END}'.replace('Z', '+00:00'))
+start = datetime.fromisoformat('${GENERATION_STARTED}'.replace('Z', '+00:00'))
+end = datetime.fromisoformat('${ALL_TESTS_PASS}'.replace('Z', '+00:00'))
 print(round((end - start).total_seconds() / 60, 1))
-" 2>/dev/null || echo "Unknown")
+" 2>/dev/null || echo "")
         fi
     fi
     
-    if [[ -n "$TTFC_START" && -n "$TTFC_END" ]]; then
-        if command -v python3 &> /dev/null; then
-            TTFC_MINUTES=$(python3 -c "
-from datetime import datetime
-start = datetime.fromisoformat('${TTFC_START}'.replace('Z', '+00:00'))
-end = datetime.fromisoformat('${TTFC_END}'.replace('Z', '+00:00'))
-print(round((end - start).total_seconds() / 60, 1))
-" 2>/dev/null || echo "Unknown")
-        fi
+    # Extract test results (handle markdown formatting with **bold**)
+    if grep -q "\*\*Total Tests\*\*" "$AI_RUN_REPORT"; then
+        TEST_TOTAL=$(grep "\*\*Total Tests\*\*" "$AI_RUN_REPORT" | head -1 | sed 's/.*\*\*Total Tests\*\*: *//' | sed 's/\*\*//g' | tr -d '[:space:]')
+    fi
+    
+    if grep -q "\*\*Passed\*\*" "$AI_RUN_REPORT"; then
+        TEST_PASSED=$(grep "\*\*Passed\*\*" "$AI_RUN_REPORT" | head -1 | sed 's/.*\*\*Passed\*\*: *//' | sed 's/\*\*//g' | tr -d '[:space:]')
+    fi
+    
+    if grep -q "\*\*Failed\*\*" "$AI_RUN_REPORT"; then
+        TEST_FAILED=$(grep "\*\*Failed\*\*" "$AI_RUN_REPORT" | head -1 | sed 's/.*\*\*Failed\*\*: *//' | sed 's/\*\*//g' | tr -d '[:space:]')
+    fi
+    
+    if grep -q "\*\*Pass Rate\*\*" "$AI_RUN_REPORT"; then
+        TEST_PASS_RATE=$(grep "\*\*Pass Rate\*\*" "$AI_RUN_REPORT" | head -1 | sed 's/.*\*\*Pass Rate\*\*: *//' | sed 's/%//' | sed 's/\*\*//g' | tr -d '[:space:]')
+    fi
+    
+    # Extract tech stack
+    if grep -q "Backend Runtime" "$AI_RUN_REPORT"; then
+        BACKEND_RUNTIME=$(grep "Backend Runtime" "$AI_RUN_REPORT" | head -1 | sed 's/.*Backend Runtime.*: *//' | sed 's/\*\*//g' | tr -d '[:space:]')
+    fi
+    
+    if grep -q "Backend Framework" "$AI_RUN_REPORT"; then
+        BACKEND_FRAMEWORK=$(grep "Backend Framework" "$AI_RUN_REPORT" | head -1 | sed 's/.*Backend Framework.*: *//' | sed 's/\*\*//g' | tr -d '[:space:]')
+    fi
+    
+    if grep -q "Database:" "$AI_RUN_REPORT"; then
+        DATABASE=$(grep "Database:" "$AI_RUN_REPORT" | head -1 | sed 's/.*Database: *//' | sed 's/\*\*//g' | tr -d '[:space:]')
     fi
 fi
 
@@ -211,7 +238,8 @@ if [[ -f "$workspace/benchmark/run_instructions.md" ]]; then
 fi
 
 if [[ "$api_type" == "REST" ]]; then
-    for file in "$workspace"/*.yaml "$workspace"/*.yml "$workspace"/openapi.* "$workspace"/api.*; do
+    # Check backend directory first, then workspace root
+    for file in "$workspace/backend/openapi.yaml" "$workspace/backend/openapi.yml" "$workspace"/*.yaml "$workspace"/*.yml "$workspace"/openapi.* "$workspace"/api.*; do
         if [[ -f "$file" ]]; then
             CONTRACT_ARTIFACT_PATH=$(realpath --relative-to="$REPO_ROOT" "$file" 2>/dev/null || echo "$file")
             break
@@ -242,154 +270,136 @@ if [[ -f "$RUN_DIR/overreach_notes.md" ]]; then
     OVERREACH_EVIDENCE_PATH=$(realpath --relative-to="$REPO_ROOT" "$RUN_DIR/overreach_notes.md" 2>/dev/null || echo "$RUN_DIR/overreach_notes.md")
 fi
 
-if [[ -d "$workspace/tests" ]]; then
+# Check for tests in backend/src/tests or workspace/tests
+if [[ -d "$workspace/backend/src/tests" ]]; then
+    AUTOMATED_TESTS_PATH=$(realpath --relative-to="$REPO_ROOT" "$workspace/backend/src/tests" 2>/dev/null || echo "$workspace/backend/src/tests")
+elif [[ -d "$workspace/tests" ]]; then
     AUTOMATED_TESTS_PATH=$(realpath --relative-to="$REPO_ROOT" "$workspace/tests" 2>/dev/null || echo "$workspace/tests")
 fi
 
-# Generate result file as JSON
-# Create a temporary Python script to handle JSON generation properly
+# Generate result file as JSON - simplified minimal format
 TEMP_SCRIPT=$(mktemp)
 cat > "$TEMP_SCRIPT" <<'PYTHON_EOF'
 import json
 import sys
+from datetime import datetime
 
-def json_value(val):
-    """Convert value to appropriate JSON type, handling 'Unknown'."""
-    if val == "Unknown" or val == "":
-        return "Unknown"
+def to_num(val):
+    """Convert value to number if possible, else return as string."""
+    if not val or val == "":
+        return None
     try:
         if '.' in str(val):
             return float(val)
         return int(val)
     except (ValueError, TypeError):
-        return str(val) if val else "Unknown"
+        return val
 
 # Read values from command line args
 args = sys.argv[1:]
 i = 0
 
+# Build minimal result structure
 result = {
-    "schema_version": "1.0",
-    "result_data": {
-        "run_identity": {
-            "tool_name": args[i],
-            "tool_version": args[i+1],
-            "run_id": args[i+2],
-            "run_number": int(args[i+3]),
-            "target_model": args[i+4],
-            "api_style": args[i+5],
-            "spec_reference": args[i+6],
-            "workspace_path": args[i+7],
-            "run_environment": args[i+8]
-        },
-        "metrics": {
-            "ttfr": {
-                "start_timestamp": args[i+9] or "",
-                "end_timestamp": args[i+10] or "",
-                "minutes": json_value(args[i+11])
-            },
-            "ttfc": {
-                "start_timestamp": args[i+12] or "",
-                "end_timestamp": args[i+13] or "",
-                "minutes": json_value(args[i+14])
-            },
-            "clarifications_count": json_value(args[i+15]),
-            "interventions_count": json_value(args[i+16]),
-            "reruns_count": json_value(args[i+17]),
-            "acceptance": {
-                "model": args[i+4],  # Same as target_model
-                "pass_count": json_value(args[i+18]),
-                "fail_count": json_value(args[i+19]),
-                "not_run_count": json_value(args[i+20]),
-                "passrate": json_value(args[i+21])
-            },
-            "determinism_compliance": args[i+22],
-            "overreach_incidents_count": json_value(args[i+23]),
-            "contract_completeness_passrate": json_value(args[i+24]),
-            "instructions_quality_rating": json_value(args[i+25]),
-            "reproducibility_rating": args[i+26]
-        },
-        "scores": {
-            "correctness_C": "Unknown",
-            "reproducibility_R": "Unknown",
-            "determinism_D": "Unknown",
-            "effort_E": "Unknown",
-            "speed_S": "Unknown",
-            "contract_docs_K": "Unknown",
-            "penalty_overreach_PO": "Unknown",
-            "overall_score": "Unknown"
-        },
-        "artifacts": {
-            "tool_transcript_path": args[i+27],
-            "run_instructions_path": args[i+28],
-            "contract_artifact_path": args[i+29],
-            "acceptance_checklist_path": args[i+30],
-            "acceptance_evidence_path": args[i+31],
-            "determinism_evidence_path": args[i+32],
-            "overreach_evidence_path": args[i+33],
-            "ai_run_report_path": args[i+34],
-            "automated_tests_path": args[i+35]
-        },
-        "submission": {
-            "submitted_timestamp": args[i+36],
-            "submitted_by": args[i+37],
-            "submission_method": args[i+38]
-        }
-    }
+    "run_info": {
+        "tool": args[i],
+        "version": args[i+1] or "",
+        "run_id": args[i+2],
+        "model": args[i+3],
+        "api_style": args[i+4],
+        "spec_version": args[i+5]
+    },
+    "timings": {},
+    "test_results": {},
+    "environment": {
+        "os": args[i+6]
+    },
+    "artifacts": {}
 }
+
+# Add timings (only if they exist)
+if args[i+7]: result["timings"]["generation_started"] = args[i+7]
+if args[i+8]: result["timings"]["code_complete"] = args[i+8]
+if args[i+9]: result["timings"]["build_clean"] = args[i+9]
+if args[i+10]: result["timings"]["seed_loaded"] = args[i+10]
+if args[i+11]: result["timings"]["app_started"] = args[i+11]
+if args[i+12]: result["timings"]["all_tests_pass"] = args[i+12]
+if args[i+13]: result["timings"]["total_minutes"] = to_num(args[i+13])
+
+# Add test results (only if they exist)
+if args[i+14]: result["test_results"]["total"] = to_num(args[i+14])
+if args[i+15]: result["test_results"]["passed"] = to_num(args[i+15])
+if args[i+16]: result["test_results"]["failed"] = to_num(args[i+16])
+if args[i+17]: result["test_results"]["pass_rate"] = to_num(args[i+17])
+
+# Add tech stack to environment (only if they exist)
+if args[i+18]: result["environment"]["backend_runtime"] = args[i+18]
+if args[i+19]: result["environment"]["backend_framework"] = args[i+19]
+if args[i+20]: result["environment"]["database"] = args[i+20]
+
+# Add artifacts (only if they exist)
+if args[i+21]: result["artifacts"]["ai_run_report"] = args[i+21]
+if args[i+22]: result["artifacts"]["openapi_contract"] = args[i+22]
+if args[i+23]: result["artifacts"]["run_instructions"] = args[i+23]
+if args[i+24]: result["artifacts"]["acceptance_checklist"] = args[i+24]
+
+# Remove empty sections
+if not result["timings"]:
+    del result["timings"]
+if not result["test_results"]:
+    del result["test_results"]
+if not result["artifacts"]:
+    del result["artifacts"]
 
 print(json.dumps(result, indent=2, ensure_ascii=False))
 PYTHON_EOF
 
-# Call Python script with all values as arguments
+# Call Python script with simplified arguments
 python3 "$TEMP_SCRIPT" \
     "$tool" \
     "${tool_ver:-}" \
     "$RUN_ID" \
-    "$RUN_NUMBER" \
     "$model" \
     "$api_type" \
     "$spec_version" \
-    "$WORKSPACE_REL" \
     "$RUN_ENV" \
-    "${TTFR_START:-}" \
-    "${TTFR_END:-}" \
-    "$TTFR_MINUTES" \
-    "${TTFC_START:-}" \
-    "${TTFC_END:-}" \
-    "$TTFC_MINUTES" \
-    "$CLARIFICATIONS_COUNT" \
-    "$INTERVENTIONS_COUNT" \
-    "$RERUNS_COUNT" \
-    "$ACCEPTANCE_PASS_COUNT" \
-    "$ACCEPTANCE_FAIL_COUNT" \
-    "$ACCEPTANCE_NOT_RUN_COUNT" \
-    "$ACCEPTANCE_PASSRATE" \
-    "$DETERMINISM_COMPLIANCE" \
-    "$OVERREACH_INCIDENTS_COUNT" \
-    "$CONTRACT_COMPLETENESS_PASSRATE" \
-    "$INSTRUCTIONS_QUALITY_RATING" \
-    "$REPRODUCIBILITY_RATING" \
-    "$TOOL_TRANSCRIPT_PATH" \
-    "$RUN_INSTRUCTIONS_PATH" \
-    "$CONTRACT_ARTIFACT_PATH" \
-    "$ACCEPTANCE_CHECKLIST_PATH" \
-    "$ACCEPTANCE_EVIDENCE_PATH" \
-    "$DETERMINISM_EVIDENCE_PATH" \
-    "$OVERREACH_EVIDENCE_PATH" \
+    "${GENERATION_STARTED:-}" \
+    "${CODE_COMPLETE:-}" \
+    "${BUILD_CLEAN:-}" \
+    "${SEED_LOADED:-}" \
+    "${APP_STARTED:-}" \
+    "${ALL_TESTS_PASS:-}" \
+    "${TOTAL_MINUTES:-}" \
+    "${TEST_TOTAL:-}" \
+    "${TEST_PASSED:-}" \
+    "${TEST_FAILED:-}" \
+    "${TEST_PASS_RATE:-}" \
+    "${BACKEND_RUNTIME:-}" \
+    "${BACKEND_FRAMEWORK:-}" \
+    "${DATABASE:-}" \
     "${WORKSPACE_REL}/benchmark/ai_run_report.md" \
-    "$AUTOMATED_TESTS_PATH" \
-    "$SUBMITTED_TIMESTAMP" \
-    "$SUBMITTED_BY" \
-    "$SUBMISSION_METHOD" > "$OUTPUT_PATH"
+    "${CONTRACT_ARTIFACT_PATH:-}" \
+    "${RUN_INSTRUCTIONS_PATH:-}" \
+    "${ACCEPTANCE_CHECKLIST_PATH:-}" > "$OUTPUT_PATH"
 
 # Clean up temp script
 rm -f "$TEMP_SCRIPT"
 
 echo "✓ Result file generated: $OUTPUT_PATH"
 echo ""
+echo "Generated minimal result file with:"
+if [[ -n "$GENERATION_STARTED" ]]; then
+    echo "  - All timestamps extracted from AI run report"
+fi
+if [[ -n "$TEST_TOTAL" ]]; then
+    echo "  - Test results: ${TEST_PASSED:-0}/${TEST_TOTAL} passed (${TEST_PASS_RATE:-0}%)"
+fi
+if [[ -n "$TOTAL_MINUTES" ]]; then
+    echo "  - Total time: ${TOTAL_MINUTES} minutes"
+fi
+echo ""
 echo "Next steps:"
-echo "  1. Review and complete any placeholder values"
-echo "  2. Validate the file: ./scripts/validate_result.sh $OUTPUT_PATH"
+echo "  1. Review the generated file"
+echo "  2. Validate: ./scripts/validate_result.sh $OUTPUT_PATH"
 echo "  3. Submit via git: git add $OUTPUT_PATH && git commit -m 'Add result: ${OUTPUT_FILENAME}'"
 
