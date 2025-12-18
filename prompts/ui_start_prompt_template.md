@@ -63,9 +63,19 @@ You MUST work strictly within scope and MUST NOT invent requirements. If somethi
 You MUST treat the following files (located under the **Spec Root**) as the sole source of truth:
 - `{Spec Root}/docs/Master_Functional_Spec.md`
 - `{Spec Root}/docs/API_Contract.md`
+- `{Spec Root}/docs/UI_Requirements.md` **← CRITICAL: Read this first for API integration guidance**
 - `{Spec Root}/docs/Acceptance_Criteria.md`
 
 Additionally, reference the existing backend's contract artifact (OpenAPI or GraphQL schema) in the workspace.
+
+**IMPORTANT:** The `UI_Requirements.md` document contains **prescriptive, normative requirements** for:
+- Exact API endpoint patterns to call
+- Required vs optional vs auto-generated fields
+- RESTful path parameter conventions
+- Field name mappings (e.g., `explanation` vs `reason`)
+- Common mistakes to avoid
+
+You MUST follow `UI_Requirements.md` exactly. It prevents common API integration errors.
 
 ---
 

@@ -110,9 +110,10 @@ Run the verification script to check that `SPEC_VERSION`, the spec doc, and the 
 ## Canonical docs (source of truth)
 - `docs/Master_Functional_Spec.md` — the functional spec, requirement IDs (`REQ-*`), non-requirements (`NOR-*`), Model A/B.
 - `docs/API_Contract.md` — contract artifact requirements (REST/GraphQL).
+- `docs/UI_Requirements.md` — principles-based guidance for UI-API integration (contract-driven approach).
 - `docs/Seed_Data.md` — deterministic seed dataset + reset-to-seed requirements.
 - `docs/Image_Handling.md` — image handling constraints (if applicable to the selected model).
-- `docs/Acceptance_Criteria.md` — acceptance criteria used to determine “feature complete”.
+- `docs/Acceptance_Criteria.md` — acceptance criteria used to determine "feature complete".
 - `docs/Benchmarking_Method.md` — benchmarking procedure + required artifacts + evidence-first scoring inputs.
 
 ## Operator Guide (step-by-step)

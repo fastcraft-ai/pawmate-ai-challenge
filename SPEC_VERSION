@@ -1,2 +1,13 @@
-v1.0.1
+v1.0.2
 
+Changes from v1.0.1:
+- Revised: docs/UI_Requirements.md to be principles-based (not implementation-specific)
+  - Removed hardcoded endpoint assumptions (API chooses patterns)
+  - Changed to contract-driven discovery approach
+  - Maintains same 14 normative requirements (REQ-UI-0001-A through REQ-UI-0014-A)
+  - Now technology-agnostic and works before API is built
+
+Changes from v1.0.0:
+- Added: docs/UI_Requirements.md - Principles-based guidance for UI-API integration
+- Updated: prompts to reference UI_Requirements.md for contract-driven UI development
+- No changes to core functional requirements (Master_Functional_Spec.md, API_Contract.md)

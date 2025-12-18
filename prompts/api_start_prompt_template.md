@@ -74,12 +74,15 @@ Pausing for file-creation confirmations corrupts the timing measurements that co
 You MUST treat the following files (located under the **Spec Root**) as the sole source of truth and keep them consistent:
 - `{Spec Root}/docs/Master_Functional_Spec.md`
 - `{Spec Root}/docs/API_Contract.md`
+- `{Spec Root}/docs/UI_Requirements.md` **← Review for API endpoint patterns expected by UI clients**
 - `{Spec Root}/docs/Seed_Data.md`
 - `{Spec Root}/docs/Image_Handling.md`
 - `{Spec Root}/docs/Acceptance_Criteria.md`
 - `{Spec Root}/docs/Benchmarking_Method.md`
 
 If any behavior is not required by a `REQ-*` item, it is out of scope unless explicitly allowed by `MAY`.
+
+**NOTE:** `UI_Requirements.md` documents the expected API contract from a UI client perspective. While implementing the API, ensure your endpoint patterns, field names, and parameter placements match what UI clients will expect. This ensures future UI implementations integrate smoothly.
 
 ---
 
