@@ -11,9 +11,9 @@ This document is designed to support benchmarking goals in:
 
 ## Scope + Constraints (Normative)
 - **Tool-agnostic**: The procedure MUST work with any AI coding tool (IDE agent, CLI agent, web agent).
-- **Technology-agnostic**: The procedure MUST NOT assume a programming language, framework, database, or hosting environment.
-- **Minimal human interaction**: The procedure MUST be executable largely via copy/paste + checklists; manual edits are tracked as “operator interventions”.
-- **No overreach**: Implementations MUST be evaluated against explicit `REQ-*` and `NOR-*` only; “extra features” are counted as overreach incidents.
+- **Prescribed tech stack**: All implementations MUST use the required technology stack (Node.js + Express + SQLite + Vite + React + TypeScript) as defined in `docs/Master_Functional_Spec.md`. The procedure itself does not assume details about these technologies (e.g., specific SQLite client libraries), but all benchmarked implementations must use the same stack for comparability.
+- **Minimal human interaction**: The procedure MUST be executable largely via copy/paste + checklists; manual edits are tracked as "operator interventions".
+- **No overreach**: Implementations MUST be evaluated against explicit `REQ-*` and `NOR-*` only; "extra features" are counted as overreach incidents.
 - **Reproducibility**: Each tool MUST be run **twice** for the same benchmark target (same spec ref + model selection) to measure reproducibility.
 
 ## Definitions
@@ -36,9 +36,10 @@ Each run MUST use a standardized wrapper that:
 - **Declares the target model** (A or B) explicitly.
 - **Pins the frozen spec reference** and states which files are in-scope inputs.
 - **Declares run independence**: the tool MUST NOT reference, rely on, or mention previous runs, earlier chats, or other run folders.
+- **Specifies the required tech stack**: the tool MUST use Node.js + Express + SQLite for backend, and Vite + React + TypeScript for frontend.
 - **Restates the overreach guardrail**: do not implement beyond `REQ-*` and respect `NOR-*`.
 - **Requires explicit assumptions** labeled `ASM-*` when the spec is ambiguous (default to the smallest compliant interpretation and proceed).
-- **Requires zero operator interaction during generation**: the tool MUST NOT pause for confirmations or require the operator to type “continue” or approve changes mid-run.
+- **Requires zero operator interaction during generation**: the tool MUST NOT pause for confirmations or require the operator to type "continue" or approve changes mid-run.
 - **Requires a contract artifact** compliant with `docs/API_Contract.md`.
 - **Requires reset-to-seed + determinism behavior** per `docs/Seed_Data.md` (including operator-friendly reset instructions).
 - **Requires acceptance verification** against `docs/Acceptance_Criteria.md` for the selected model.

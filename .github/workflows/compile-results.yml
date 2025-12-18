@@ -1,0 +1,66 @@
+name: Compile Results
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'results/submitted/**/*.json'
+  workflow_dispatch:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install -r scripts/requirements.txt
+      
+      - name: Run aggregation script
+        run: |
+          python3 scripts/aggregate_results.py
+      
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain results/compiled/)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit compiled reports
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add results/compiled/
+          git commit -m "chore: Update compiled comparison reports [skip ci]" || exit 0
+          git push
+      
+      - name: Summary
+        run: |
+          echo "## Compilation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.changes.outputs.has_changes }}" == "true" ]; then
+            echo "✅ Generated comparison reports in \`results/compiled/\`" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Reports:" >> $GITHUB_STEP_SUMMARY
+            ls -1 results/compiled/*.md 2>/dev/null | sed 's/^/- /' >> $GITHUB_STEP_SUMMARY || echo "- No reports generated" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️ No new reports generated (no changes or no results to aggregate)" >> $GITHUB_STEP_SUMMARY
+          fi
+

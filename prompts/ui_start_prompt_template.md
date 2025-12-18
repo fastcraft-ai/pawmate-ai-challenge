@@ -81,6 +81,19 @@ You MUST follow `UI_Requirements.md` exactly. It prevents common API integration
 
 ### 3) Hard Guardrails (MUST)
 
+#### 3.0 Required Tech Stack (MUST)
+To ensure reliable and comparable benchmarking results, you MUST use the following technology stack for the UI:
+
+- **Frontend**: Vite + React + TypeScript
+- **Project structure**: Frontend as a separate project under `{Workspace Path}/ui/` with its own `package.json`
+- **No Docker**: Do not use Docker or any containerization
+- **No external services**: No cloud services or third-party APIs
+- **Cross-platform**: The UI MUST run on both macOS and Windows using only `npm install && npm run dev`
+
+**CRITICAL:** You MUST NOT use any other frontend framework (e.g., Vue, Angular, Svelte, Next.js) or build tool (e.g., webpack, Parcel, Rollup). Use Vite + React + TypeScript exactly as specified.
+
+The backend was already built with Node.js + Express + SQLite per the API prompt constraints.
+
 #### 3.1 Backend preservation
 - You MUST NOT delete or replace existing backend code.
 - You MUST NOT change the API contract (operations, request/response shapes).
@@ -165,6 +178,31 @@ At the end of this run:
 - Provide a **clickable URL** to access the UI (e.g., `http://localhost:5173`)
 
 **IMPORTANT:** The user will click the URL to open the UI in their browser. Make sure both backend and UI are running before providing the final URL.
+
+---
+
+### 7.5) Automated Results Submission (MUST)
+Upon completion of the UI implementation, you MUST update the result file to reflect UI completion.
+
+#### 7.5.1 Update Result File
+If a result file was already generated for the API run, update it to include UI completion metrics:
+- Update timestamps if UI completion affects TTFC
+- Note UI completion in the human-readable section
+- Update artifact paths if UI artifacts were created
+
+#### 7.5.2 Generate/Update Result File
+Run the result generation script to create or update the standardized result file:
+```bash
+cd {Spec Root}
+./scripts/generate_result_file.sh --run-dir {Workspace Path}/..
+```
+
+This will generate a result file that includes both API and UI completion.
+
+#### 7.5.3 Validate and Submit
+Follow the same validation and submission steps as in the API prompt (section 8.5.3-8.5.5).
+
+**Note**: The UI run is typically part of the same benchmark run as the API. The result file should reflect the complete implementation (API + UI) when both are finished.
 
 ---
 

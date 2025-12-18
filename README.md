@@ -74,7 +74,18 @@ The spec is designed to support reproducible benchmarking. Key constraints inclu
 - **No external integrations**: do not require third-party services (including external storage/CDN, email/SMS, SSO providers, etc.).
 - **No scope creep / overreach**: do not invent features beyond explicit `REQ-*` requirements; out-of-scope areas are labeled `NOR-*`.
 - **Privacy is out of scope**: privacy requirements are explicitly non-goals for this benchmark.
-- **Technology-agnostic**: the spec does not prescribe a programming language, framework, or database — the AI tool chooses the stack.
+- **Required tech stack**: to ensure reliable benchmarking, implementations **must** use the prescribed technology stack (see below).
+
+## Required Tech Stack
+To ensure consistent and comparable results across benchmark runs, all implementations **must** use the following technology stack:
+
+- **Backend**: Node.js + Express
+- **Database**: SQLite (file-based, no separate database server)
+- **Frontend**: Vite + React + TypeScript
+- **Project structure**: Frontend and backend are separate projects (separate folders with their own `package.json`)
+- **No containerization**: No Docker or container orchestration
+- **No external services**: No cloud services, external databases, or third-party APIs
+- **Cross-platform**: The application must run on both macOS and Windows using only `npm install && npm run dev`
 
 ## Spec versioning
 The spec uses **semantic versioning** with git tags for immutable references.

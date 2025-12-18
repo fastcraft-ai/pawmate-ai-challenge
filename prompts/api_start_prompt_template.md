@@ -88,6 +88,18 @@ If any behavior is not required by a `REQ-*` item, it is out of scope unless exp
 
 ### 3) Hard Guardrails (MUST)
 
+#### 3.0 Required Tech Stack (MUST)
+To ensure reliable and comparable benchmarking results, you MUST use the following technology stack:
+
+- **Backend**: Node.js + Express
+- **Database**: SQLite (file-based, no separate database server required)
+- **Project structure**: Backend as a separate project with its own `package.json`
+- **No Docker**: Do not use Docker or any containerization
+- **No external services**: No cloud services, external databases, or third-party APIs
+- **Cross-platform**: The implementation MUST run on both macOS and Windows using only `npm install && npm run dev`
+
+**CRITICAL:** You MUST NOT use any other backend framework (e.g., NestJS, Fastify, Koa), runtime (e.g., Deno, Bun), or database (e.g., PostgreSQL, MySQL, MongoDB). Stick to the prescribed stack exactly.
+
 #### 3.1 Overreach guardrails (`NOR-*`)
 You MUST comply with all `NOR-*` items in the Master Spec. In particular:
 - You MUST NOT require any external integrations (`NOR-0001`).
@@ -246,6 +258,58 @@ At the end of this run:
 - All tests MUST pass
 - The AI run report MUST be complete with all timestamps
 - Provide a **clickable URL** to access the API (e.g., `http://localhost:3000`)
+
+---
+
+### 8.5) Automated Results Submission (MUST)
+Upon completion of the implementation and all verification steps, you MUST generate a standardized result file for submission.
+
+#### 8.5.1 Generate Result File
+Run the result generation script to create a standardized result file:
+```bash
+cd {Spec Root}
+./scripts/generate_result_file.sh --run-dir {Workspace Path}/..
+```
+
+This script will:
+- Extract metrics from your AI run report
+- Parse run configuration
+- Generate a standardized result file in `results/submitted/`
+
+#### 8.5.2 Complete Result File
+The generated result file will contain placeholders for metrics that must be manually completed. You MUST:
+1. Review the generated result file
+2. Extract and fill in any missing metrics from your run:
+   - Acceptance criteria pass/fail counts and passrate
+   - Determinism compliance status
+   - Contract completeness passrate
+   - Instructions quality rating
+   - Any other metrics that can be determined from your run
+3. Calculate scores using `docs/Scoring_Rubric.md` (if sufficient data is available)
+
+#### 8.5.3 Validate Result File
+Before submission, validate the result file:
+```bash
+./scripts/validate_result.sh results/submitted/{generated-filename}.md
+```
+
+Fix any validation errors before proceeding.
+
+#### 8.5.4 Submit Result File
+After validation passes, the result file is ready for submission. The operator will:
+1. Review the result file for completeness
+2. Commit it to git: `git add results/submitted/{filename}.md`
+3. Create a pull request to submit the results
+
+**Note**: If you cannot execute the generation script (e.g., no shell access), create the result file manually using `results/result_template.json` as a template, following `docs/Result_File_Spec.md` for the exact format.
+
+#### 8.5.5 Result File Requirements
+The result file MUST:
+- Follow the naming convention: `{tool-slug}_{model}_{api-type}_{run-number}_{timestamp}.md`
+- Include complete YAML frontmatter with all required fields
+- Include human-readable content following `docs/Run_Log_Template.md` structure
+- Reference all artifact paths correctly
+- Be validated successfully before submission
 
 ---
 

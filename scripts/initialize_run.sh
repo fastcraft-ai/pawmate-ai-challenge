@@ -107,6 +107,24 @@ WORKSPACE_PATH="$RUN_DIR/PawMate"
 # Generate run ID
 RUN_ID="${TOOL// /-}-Model${model}-$(basename "$RUN_DIR")"
 
+# Determine run number from run_id or default to 1
+RUN_NUMBER=1
+if echo "$RUN_ID" | grep -qi "run2\|run-2"; then
+    RUN_NUMBER=2
+fi
+
+# Generate tool slug (lowercase, alphanumeric + hyphens)
+TOOL_SLUG=$(echo "$TOOL" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g' | sed 's/--*/-/g' | sed 's/^-\|-$//g')
+
+# Generate timestamp from run directory name or current time
+RUN_DIR_NAME=$(basename "$RUN_DIR")
+TIMESTAMP=""
+if [[ "$RUN_DIR_NAME" =~ ^[0-9]{8}T[0-9]{4}$ ]]; then
+    TIMESTAMP="$RUN_DIR_NAME"
+else
+    TIMESTAMP=$(date +%Y%m%dT%H%M)
+fi
+
 # Write run.config
 cat > "$RUN_DIR/run.config" <<EOF
 # run.config — Benchmark Run Configuration
@@ -213,6 +231,86 @@ else
     UI_PROMPT_FILE="$RUN_DIR/start_build_ui_prompt.txt"
     echo "$UI_RENDERED" > "$UI_PROMPT_FILE"
 fi
+
+# Generate result submission instructions
+cat > "$RUN_DIR/result_submission_instructions.md" <<EOF
+# Result Submission Instructions
+
+## Overview
+After completing your benchmark run (API and optionally UI), you need to generate and submit a standardized result file.
+
+## Automated Generation
+
+### Step 1: Generate Result File
+Run the result generation script from the repository root:
+
+\`\`\`bash
+cd "$REPO_ROOT"
+./scripts/generate_result_file.sh --run-dir "$RUN_DIR"
+\`\`\`
+
+This will create a standardized result file in \`results/submitted/\` with a name like:
+\`${TOOL_SLUG}_model${model}_${api_type}_run${RUN_NUMBER}_${TIMESTAMP}.json\`
+
+### Step 2: Complete Result File
+The generated file will contain placeholders for metrics that must be filled in. Review the file and:
+
+1. Extract acceptance criteria results from your run
+2. Fill in determinism compliance status
+3. Calculate contract completeness passrate
+4. Rate instructions quality (100/70/40/0)
+5. Calculate scores using \`docs/Scoring_Rubric.md\`
+
+### Step 3: Validate Result File
+Before submitting, validate the result file:
+
+\`\`\`bash
+./scripts/validate_result.sh results/submitted/{generated-filename}.md
+\`\`\`
+
+Fix any validation errors before proceeding.
+
+### Step 4: Submit via Git
+Once validation passes:
+
+\`\`\`bash
+# Add the result file
+git add results/submitted/{generated-filename}.md
+
+# Commit
+git commit -m "Add benchmark result: ${TOOL} Model ${model} ${api_type} Run ${RUN_NUMBER}"
+
+# Push and create pull request
+git push origin HEAD
+# Then create a PR on GitHub
+\`\`\`
+
+## Manual Generation (if script unavailable)
+
+If you cannot run the generation script, create the result file manually:
+
+1. Copy \`results/result_template.json\` as a starting point
+2. Follow \`docs/Result_File_Spec.md\` for the exact format
+3. Fill in all required fields
+4. Ensure the filename follows the naming convention
+5. Validate JSON syntax before submitting
+
+## Resources
+
+- \`docs/Result_File_Spec.md\` - Complete specification
+- \`docs/Scoring_Rubric.md\` - Score calculation rules
+- \`docs/Submitting_Results.md\` - Detailed submission guide
+- \`results/result_template.md\` - Template file
+
+## Run Information
+
+- **Run Directory**: \`$RUN_DIR\`
+- **Workspace**: \`$WORKSPACE_PATH\`
+- **Tool**: ${TOOL}${TOOL_VER:+ }${TOOL_VER}
+- **Model**: ${model}
+- **API Style**: ${api_type}
+- **Spec Version**: ${SPEC_VER}
+EOF
 
 # Output summary
 echo ""

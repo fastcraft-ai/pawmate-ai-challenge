@@ -1,9 +1,9 @@
-# Master Functional Specification (Technology-Agnostic)
+# Master Functional Specification
 
-> **Spec Version:** `v1.0.0`
+> **Spec Version:** `v2.0.0`
 
 > **Non-normative intro (How to read this spec):**
-> - This document defines **what** the system must do, not **how** to implement it.
+> - This document defines **what** the system must do and **which technologies** must be used for benchmarking consistency.
 > - Requirements use RFC-style keywords (**MUST**, **MUST NOT**, **SHOULD**, **SHOULD NOT**, **MAY**).
 > - Each normative requirement has a stable ID: `REQ-{AREA}-{NNNN}-{MODEL}`, where:
 >   - `AREA ∈ {CORE, API, DATA, IMG, ETH, UX, OPS, BENCH}`
@@ -16,7 +16,7 @@
 ---
 
 ## Purpose
-This specification defines a technology-agnostic, AI-executable functional spec for an ethical **pet adoption management** application (“PawMate”) with **two selectable models** (A/B), designed for reproducible benchmarking across AI coding tools.
+This specification defines a functional spec with a **prescribed technology stack** for an ethical **pet adoption management** application ("PawMate") with **two selectable models** (A/B), designed for reproducible benchmarking across AI coding tools.
 
 PawMate is not commerce. Animals are living beings with an enforced **lifecycle state machine**, and every adoption decision must be **auditable** and **explainable**.
 
@@ -60,6 +60,28 @@ Model B requirements are expressed as **deltas** where helpful and are labeled w
 - The API is the **system of record** (authoritative source of truth).
 - Implementers MAY provide a UI, but the API behavior is normative.
 - Implementers MUST produce an API contract artifact (REST: e.g., OpenAPI; GraphQL: schema). The specific artifact type is not mandated here; see `docs/API_Contract.md` for requirements.
+
+## Required Technology Stack
+To ensure reliable and comparable benchmarking results, implementations MUST use the following prescribed technology stack:
+
+- **Backend Runtime + Framework**: Node.js + Express
+- **Database**: SQLite (file-based; no separate database server)
+- **Frontend Build Tool + Framework + Language**: Vite + React + TypeScript
+- **Project Structure**: Frontend and backend MUST be separate projects (separate directories with their own `package.json` files)
+- **No Containerization**: Docker, Podman, or other container technologies MUST NOT be required
+- **No External Services**: No cloud services, external databases, or third-party APIs MUST be required
+- **Cross-Platform Compatibility**: The implementation MUST run on both macOS and Windows using only `npm install && npm run dev` (or equivalent non-interactive commands)
+
+### Normative Requirements — Tech Stack
+- [Model A] REQ-BENCH-0001-A MUST use Node.js as the backend runtime.
+- [Model A] REQ-BENCH-0002-A MUST use Express as the backend framework.
+- [Model A] REQ-BENCH-0003-A MUST use SQLite as the database (file-based; no separate database server process).
+- [Model A] REQ-BENCH-0004-A MUST use Vite as the frontend build tool.
+- [Model A] REQ-BENCH-0005-A MUST use React as the frontend framework.
+- [Model A] REQ-BENCH-0006-A MUST use TypeScript for frontend code.
+- [Model A] REQ-BENCH-0007-A MUST structure the project as separate frontend and backend projects with separate `package.json` files.
+- [Model A] REQ-BENCH-0008-A MUST NOT require Docker or any containerization technology.
+- [Model A] REQ-BENCH-0009-A MUST be runnable on both macOS and Windows using only `npm install && npm run dev` (or documented equivalent non-interactive commands).
 
 ## Error / Validation Principles
 The system MUST define and consistently apply:
