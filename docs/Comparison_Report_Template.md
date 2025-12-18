@@ -1,4 +1,4 @@
-## Appendix I — Comparison Report Template (Copy/Paste)
+# Comparison Report Template — Copy/Paste
 
 > **Operator instructions:** Use this template to compare multiple tools for the same **frozen spec reference** and **target model**. Fill all bracketed fields. Do not infer missing values; record **Unknown** if evidence is missing.
 
@@ -36,7 +36,7 @@
 
 ---
 
-### 3) Comparison Table (Exact Schema from Appendix E) (Required)
+### 3) Comparison Table (Exact Schema from `docs/Benchmarking_Method.md`) (Required)
 > One row per tool. Values typically reflect the average across Run 1 and Run 2 unless stated. Use **Unknown** where applicable.
 
 #### Identification + Inputs
@@ -144,7 +144,7 @@ For each tool, summarize differences between runs.
 ---
 
 ### 8) Contract Artifact Review Summary (Per tool)
-Summarize Appendix A checklist outcomes.
+Summarize `docs/API_Contract.md` checklist outcomes.
 
 #### [Tool Name]
 - **Contract artifact path**: [...]
@@ -155,7 +155,7 @@ Summarize Appendix A checklist outcomes.
 ---
 
 ### 9) Determinism / Reset-to-Seed Summary (Per tool)
-Summarize Appendix B outcomes.
+Summarize `docs/Seed_Data.md` outcomes.
 
 #### [Tool Name]
 - **Reset-to-seed mechanism**: [API op | local command | Unknown]
@@ -165,7 +165,7 @@ Summarize Appendix B outcomes.
 
 ---
 
-### 10) Appendix: Evidence Index (Optional but recommended)
+### 10) Evidence Index (Optional but recommended)
 Provide a quick index of the run folders and key files for auditability.
 - [Tool Name] Run 1: [path]
 - [Tool Name] Run 2: [path]

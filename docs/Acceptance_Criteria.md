@@ -1,7 +1,7 @@
-# Appendix D — Acceptance Criteria + Use-Case Catalog (Model A + Model B)
+# Acceptance Criteria + Use-Case Catalog — Model A + Model B
 
 ## Purpose
-This appendix provides **observable, API-verifiable** acceptance criteria and a test-like **use-case catalog** that implementers (and benchmark operators) can translate into automated tests.
+This document provides **observable, API-verifiable** acceptance criteria and a test-like **use-case catalog** that implementers (and benchmark operators) can translate into automated tests.
 
 Key design goals:
 - **Technology-agnostic** (no framework/db assumptions)
@@ -29,7 +29,7 @@ Each acceptance criterion uses this ID scheme:
 - `AC-NOR-{NNNN}-{NN}` for non-goals/overreach checks, e.g. `AC-NOR-0006-01`
 
 ### Error Categories (Contract-Visible)
-When an error is expected, criteria MUST reference the category names from Appendix A:
+When an error is expected, criteria MUST reference the category names from `docs/API_Contract.md`:
 - `ValidationError`
 - `NotFound`
 - `Conflict`
@@ -40,7 +40,7 @@ When an error is expected, criteria MUST reference the category names from Appen
 Whenever a criterion validates a collection response (list/search/history/images ordering), it MUST:
 - assert the **ordering rule** (primary key(s) + tie-break)
 - assert the behavior is stable for the **same dataset state + request parameters**
-- reference seeded IDs (Appendix B) when applicable
+- reference seeded IDs (`docs/Seed_Data.md`) when applicable
 
 ---
 
@@ -74,7 +74,7 @@ Whenever a criterion validates a collection response (list/search/history/images
 ### UC-A-SEED — Seed + Reset-to-Seed Determinism
 - UC-A-SEED-01 Reset-to-seed is available and succeeds
 - UC-A-SEED-02 Reset-to-seed idempotency (run twice → identical state)
-- UC-A-SEED-03 Post-reset invariants match golden seed records (Appendix B)
+- UC-A-SEED-03 Post-reset invariants match golden seed records (`docs/Seed_Data.md`)
 
 ### UC-A-IMAGES — Image Handling
 - UC-A-IMAGES-01 Animal read includes `images[]` (may be empty)
@@ -84,7 +84,7 @@ Whenever a criterion validates a collection response (list/search/history/images
 - UC-A-IMAGES-05 Remove image from animal (valid)
 - UC-A-IMAGES-06 Remove image not associated (explicit rule: not-found)
 - UC-A-IMAGES-07 Images ordering is deterministic (`ordinal` asc, tie-break `imageId` asc)
-- UC-A-IMAGES-08 Seeded images are present after reset (Appendix B + C)
+- UC-A-IMAGES-08 Seeded images are present after reset (`docs/Seed_Data.md` + `docs/Image_Handling.md`)
 
 ### UC-A-ETHICS — Ethics constraints
 - UC-A-ETHICS-01 Evaluation/decision explanations are always present
@@ -131,7 +131,7 @@ Whenever a criterion validates a collection response (list/search/history/images
 - **Steps**:
   - Call ListAnimals using contract-defined pagination inputs; page until all animals are retrieved.
 - **Expected Results**:
-  - Exactly 12 seeded animals are reachable via paging (Appendix B).
+  - Exactly 12 seeded animals are reachable via paging (`docs/Seed_Data.md`).
 
 #### `AC-REQ-API-0002-A-01` — Deterministic ordering for ListAnimals
 - **Related Requirements**: `REQ-API-0002-A`
@@ -227,7 +227,7 @@ Whenever a criterion validates a collection response (list/search/history/images
 - **Steps**:
   - GetAnimal for ANM-0001..ANM-0005.
 - **Expected Results**:
-  - Fields match Appendix B golden values (name/species/status/tags/timestamps; description substrings).
+  - Fields match `docs/Seed_Data.md` golden values (name/species/status/tags/timestamps; description substrings).
 
 #### `AC-REQ-OPS-0002-A-01` — Reset-to-seed idempotency
 - **Related Requirements**: `REQ-OPS-0002-A`

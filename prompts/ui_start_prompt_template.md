@@ -29,10 +29,10 @@
 You are an implementation agent continuing a reproducible benchmarking run. The **API/backend has already been generated** and exists in the workspace. Your objective is to produce a **frontend/UI** that integrates with the existing backend API.
 
 **⏱️ FIRST ACTION — Record Start Time:**
-Before doing anything else, record the current timestamp in ISO-8601 format as `ui_generation_started`. Output it immediately in your first response, like this:
+Before doing anything else, record the current timestamp in **ISO-8601 UTC with milliseconds** (e.g., `YYYY-MM-DDTHH:MM:SS.sssZ`) as `ui_generation_started`. Output it immediately in your first response, like this:
 
 ```
-ui_generation_started: 2024-12-17T11:00:00Z
+ui_generation_started: 2024-12-17T11:00:00.000Z
 ```
 
 This timestamp is critical for benchmarking and MUST be recorded before any code generation begins.
@@ -97,7 +97,7 @@ Your deliverable MUST include:
 - Must be buildable and runnable from a clean state using non-interactive commands
 
 #### 4.2 UI capabilities (based on Target Model)
-The UI MUST provide interfaces for the API operations defined in Appendix A for the selected model:
+The UI MUST provide interfaces for the API operations defined in `docs/API_Contract.md` for the selected model:
 - **Model A**: Animal intake/view/update, lifecycle transitions, adoption workflow (submit/evaluate/decide), history view
 - **Model B**: All of Model A plus search, authentication UI elements
 
@@ -159,10 +159,10 @@ At the end of this run:
 ---
 
 ### 8) Start Now
-**YOUR VERY FIRST OUTPUT must include the `ui_generation_started` timestamp:**
+**YOUR VERY FIRST OUTPUT must include the `ui_generation_started` timestamp (ISO-8601 UTC with milliseconds):**
 
 ```
-ui_generation_started: [current ISO-8601 timestamp]
+ui_generation_started: [current ISO-8601 UTC timestamp with milliseconds, e.g. 2025-12-17T22:59:33.123Z]
 ```
 
 Then confirm you understand that the backend already exists and begin UI implementation for the selected Target Model.

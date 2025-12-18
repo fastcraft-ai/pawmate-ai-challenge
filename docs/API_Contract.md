@@ -1,9 +1,9 @@
-# Appendix A — API Contract Requirements (REST or GraphQL Choice)
+# API Contract Requirements — REST or GraphQL Choice
 
 ## Purpose
-This appendix defines what the **API contract artifact** MUST contain so that implementations are verifiable and benchmarkable while still allowing implementers to choose **REST or GraphQL** (choice, not both).
+This document defines what the **API contract artifact** MUST contain so that implementations are verifiable and benchmarkable while still allowing implementers to choose **REST or GraphQL** (choice, not both).
 
-This appendix is normative for the contract artifact and is aligned to `docs/Master_Functional_Spec.md` requirement IDs.
+This document is normative for the contract artifact and is aligned to `docs/Master_Functional_Spec.md` requirement IDs.
 
 ## Scope and Constraints (Normative)
 - Exactly **two selectable models** exist: **Model A (Minimum)** and **Model B (Full)**.
@@ -198,7 +198,7 @@ Required operations (contract MUST define equivalents):
 ---
 
 ### Model A — Images (Associate/Add/Remove + Retrieval)
-This section is intentionally high-level; detailed constraints are in Appendix C.
+This section is intentionally high-level; detailed constraints are in `docs/Image_Handling.md`.
 
 Required contract-defined behaviors:
 - The contract MUST specify whether images are:

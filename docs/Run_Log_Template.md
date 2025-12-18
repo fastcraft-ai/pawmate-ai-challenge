@@ -1,8 +1,8 @@
-## Appendix G — Run Log Template (Copy/Paste)
+# Run Log Template — Copy/Paste
 
 > **Operator instructions:** Create one copy of this file per **Tool Under Test (TUT)** per **run** (Run 1 and Run 2). Fill all fields. If a metric cannot be supported by evidence, record **Unknown** and explain what evidence is missing (do not guess).
 
-> **AI Run Report:** The AI tool should generate `benchmark/ai_run_report.md` containing timestamps, tech stack, and test results. This report provides machine-comparable data for cross-tool benchmarking. Reference it in Section 5 below.
+> **AI Run Report:** The AI tool should generate `benchmark/ai_run_report.md` containing timestamps, tech stack, and test results. These timestamps are **tool-reported milestones** (including the tool starting the API and confirming it responds before running tests). This report provides machine-comparable data for cross-tool benchmarking. Reference it in Section 5 below.
 
 ---
 
@@ -82,7 +82,7 @@
 
 ---
 
-### 5) Artifact Bundle Checklist (Appendix E) (Operator fills)
+### 5) Artifact Bundle Checklist (`docs/Benchmarking_Method.md`) (Operator fills)
 #### 5.1 Required artifact paths
 - **tool_transcript_path**: [path]
 - **run_instructions_path**: [path]
@@ -109,7 +109,7 @@
 ---
 
 ### 6) Contract Artifact Evaluation (M-10) (Operator fills)
-- **contract_checklist_path**: [path to completed Appendix A checklist]
+- **contract_checklist_path**: [path to completed contract checklist derived from `docs/API_Contract.md`]
 - **contract_completeness_passrate**: [0..1|Unknown]
 - **contract_findings**:
   - **pagination declared**: [yes/no/Unknown] — [evidence pointer]
@@ -122,7 +122,7 @@
 - **reset_to_seed_mechanism**: [API operation | local command | Unknown]
 - **reset_to_seed_instructions_ref**: [path/anchor]
 - **reset_idempotency_demonstrated**: [Pass|Fail|Unknown]
-- **golden_checks_summary** (Appendix B):
+- **golden_checks_summary** (`docs/Seed_Data.md`):
   - **animals present** (ANM-0001..): [Pass|Fail|Unknown] — [evidence]
   - **applications/history** (seeded IDs + deterministic ordering): [Pass|Fail|Unknown] — [evidence]
   - **images seeded + ordering**: [Pass|Fail|Unknown] — [evidence]

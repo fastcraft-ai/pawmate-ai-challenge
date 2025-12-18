@@ -1,9 +1,9 @@
-## Appendix E — Benchmarking Method (Procedure + Required Artifacts)
+# Benchmarking Method — Procedure + Required Artifacts
 
 ## Purpose
 Define a **repeatable, tool-agnostic, operator-light** method to run the same frozen spec through multiple AI coding tools and collect **comparison-ready** evidence.
 
-This appendix is designed to support benchmarking goals in:
+This document is designed to support benchmarking goals in:
 - `docs/Master_Functional_Spec.md` (Model A/B, no overreach, assumptions)
 - `docs/API_Contract.md` (contract artifact completeness + determinism)
 - `docs/Seed_Data.md` (reset-to-seed + determinism checks)
@@ -22,7 +22,7 @@ This appendix is designed to support benchmarking goals in:
 - **Rerun**: Restarting a run (or re-invoking generation) because of failures or to apply the same prompt again.
 - **Operator intervention**: Any manual change beyond copy/paste execution of the TUT’s instructions (e.g., editing code, fixing configs, resolving conflicts).
 - **Frozen spec reference**: A version identifier for the exact spec being used (e.g., git commit SHA, tag, or an immutable archive hash).
-- **Contract artifact**: The implementation’s machine-readable API contract (OpenAPI or GraphQL schema) that satisfies Appendix A.
+- **Contract artifact**: The implementation’s machine-readable API contract (OpenAPI or GraphQL schema) that satisfies `docs/API_Contract.md`.
 
 ## Benchmark Inputs (What the operator chooses and records)
 For each benchmark, record these **before** starting any tool runs:
@@ -38,9 +38,9 @@ Each run MUST use a standardized wrapper that:
 - **Declares run independence**: the tool MUST NOT reference, rely on, or mention previous runs, earlier chats, or other run folders.
 - **Restates the overreach guardrail**: do not implement beyond `REQ-*` and respect `NOR-*`.
 - **Requires explicit assumptions** labeled `ASM-*` when the spec is ambiguous.
-- **Requires a contract artifact** compliant with Appendix A.
-- **Requires reset-to-seed + determinism behavior** per Appendix B (including operator-friendly reset instructions).
-- **Requires acceptance verification** against Appendix D for the selected model.
+- **Requires a contract artifact** compliant with `docs/API_Contract.md`.
+- **Requires reset-to-seed + determinism behavior** per `docs/Seed_Data.md` (including operator-friendly reset instructions).
+- **Requires acceptance verification** against `docs/Acceptance_Criteria.md` for the selected model.
 - **Requires operator run instructions** that are copy/paste friendly (no interactive prompts).
 
 > Note: See `prompts/api_start_prompt_template.md` for the API start prompt template; this appendix defines the requirement that a wrapper exists and what it must contain. Use `./scripts/initialize_run.sh` to render the templates with run-specific values.
@@ -81,13 +81,13 @@ Notes:
 
 ### 6) Reset-to-seed + determinism readiness (Normative)
 Before any “feature complete” claim, the operator MUST verify the implementation provides:
-- A **non-interactive reset-to-seed** mechanism (API operation or local command) per Appendix B.
-- Operator-visible **post-reset invariants** verification steps (golden records/determinism checks from Appendix B).
+- A **non-interactive reset-to-seed** mechanism (API operation or local command) per `docs/Seed_Data.md`.
+- Operator-visible **post-reset invariants** verification steps (golden records/determinism checks from `docs/Seed_Data.md`).
 
 ### 7) Time-to-feature-complete (TTFC) measurement point (Normative)
 **Stop the TTFC clock** at the earliest moment when BOTH are true:
-- The operator can execute reset-to-seed and run the acceptance checks for the selected model (Appendix D), and
-- The implementation is **feature-complete** for the selected model, evidenced by passing the relevant acceptance criteria (or an operator checklist derived directly from Appendix D).
+- The operator can execute reset-to-seed and run the acceptance checks for the selected model (`docs/Acceptance_Criteria.md`), and
+- The implementation is **feature-complete** for the selected model, evidenced by passing the relevant acceptance criteria (or an operator checklist derived directly from `docs/Acceptance_Criteria.md`).
 
 ### 8) Complete Run 1 artifact capture (operator)
 Collect and save the required artifacts listed below.
@@ -105,14 +105,15 @@ Each run MUST produce the following, stored in a run folder (structure is implem
 - **Prompt wrapper**: the exact prompt text submitted to the tool.
 - **Full tool transcript**: raw chat/log output from the tool (including clarifications and responses).
 - **Generated run instructions**: “how to run”, “how to reset-to-seed”, “how to verify acceptance”.
-- **Contract artifact**: OpenAPI or GraphQL schema (and any required supporting files) meeting Appendix A.
+- **AI run report** (tool-produced): `benchmark/ai_run_report.md` with tool-reported timestamps. If automated tests are run, the tool MUST have started the API/application successfully and recorded the corresponding “app started and responsive” timestamp before reporting any `tests_run_N` timestamp.
+- **Contract artifact**: OpenAPI or GraphQL schema (and any required supporting files) meeting `docs/API_Contract.md`.
 - **Acceptance evidence**:
   - model selected (A or B),
-  - pass/fail results for Appendix D criteria (or a checklist mapping to them),
+  - pass/fail results for `docs/Acceptance_Criteria.md` criteria (or a checklist mapping to them),
   - output logs or screenshots sufficient to verify the result.
 - **Determinism evidence**:
   - reset-to-seed invocation (command/mutation) executed at least twice with identical post-reset outcomes,
-  - verification of Appendix B golden items (e.g., key seeded animals/applications/history/images; Model B users/search if applicable).
+  - verification of `docs/Seed_Data.md` golden items (e.g., key seeded animals/applications/history/images; Model B users/search if applicable).
 - **Overreach evidence**:
   - any detected `NOR-*` violations or features beyond `REQ-*`,
   - notes on where the overreach appeared (files/behavior).
@@ -138,8 +139,8 @@ Each run MUST record the following metrics.
 - **What it measures**: Elapsed time from submitting the prompt wrapper to satisfying the “feature complete” stop condition (per §7).
 - **How to measure**: Same as TTFR; end timestamp is when acceptance evidence confirms feature-complete.
 - **Required evidence**:
-  - acceptance evidence bundle (Appendix D mapping + pass/fail outputs)
-  - determinism evidence bundle (Appendix B reset + golden checks)
+  - acceptance evidence bundle (`docs/Acceptance_Criteria.md` mapping + pass/fail outputs)
+  - determinism evidence bundle (`docs/Seed_Data.md` reset + golden checks)
   - operator log showing the timestamp when the final required evidence was produced
 
 #### M-03: Clarifications requested
@@ -164,9 +165,9 @@ Each run MUST record the following metrics.
   - tool transcript showing the rerun trigger (e.g., “try again”, “regenerate”, new session)
 
 #### M-06: Acceptance pass rate (Model A or Model B)
-- **What it measures**: Correctness against Appendix D for the selected model.
+- **What it measures**: Correctness against `docs/Acceptance_Criteria.md` for the selected model.
 - **How to measure**:
-  - Create an “Acceptance Checklist” derived directly from Appendix D for the selected model.
+  - Create an “Acceptance Checklist” derived directly from `docs/Acceptance_Criteria.md` for the selected model.
   - Record each criterion as Pass/Fail/Not-Run with notes and evidence references.
   - Compute pass rate as: \( \text{PassRate} = \frac{\#Pass}{\#Pass + \#Fail} \) (exclude Not-Run).
 - **Required evidence**:
@@ -190,21 +191,21 @@ Each run MUST record the following metrics.
   - a run-comparison note listing observed differences and pointers to evidence
 
 #### M-09: Determinism compliance (seed + reset)
-- **What it measures**: Conformance to Appendix B reset-to-seed and post-reset invariants, and Appendix A ordering determinism declarations.
+- **What it measures**: Conformance to `docs/Seed_Data.md` reset-to-seed and post-reset invariants, and `docs/API_Contract.md` ordering determinism declarations.
 - **How to measure**:
   - Execute reset-to-seed twice and verify identical post-reset outcomes.
-  - Verify Appendix B golden items for the selected model (and contract-declared deterministic ordering rules for collections).
+  - Verify `docs/Seed_Data.md` golden items for the selected model (and contract-declared deterministic ordering rules for collections).
 - **Required evidence**:
   - reset-to-seed invocation record (commands/mutations) executed twice
   - captured outputs of golden checks (e.g., seeded animals/applications/history/images; Model B users/search if applicable)
   - contract artifact section(s) showing deterministic ordering + tie-break rules for collections
 
 #### M-10: Contract artifact completeness
-- **What it measures**: Whether the contract artifact is benchmark-ready per Appendix A (operations, schemas, errors, pagination, determinism).
-- **How to measure**: Use Appendix A “Contract Completeness Checklist” and mark each item Pass/Fail/Unknown.
+- **What it measures**: Whether the contract artifact is benchmark-ready per `docs/API_Contract.md` (operations, schemas, errors, pagination, determinism).
+- **How to measure**: Use a “Contract Completeness Checklist” derived from `docs/API_Contract.md` and mark each item Pass/Fail/Unknown.
 - **Required evidence**:
   - the contract artifact file(s)
-  - a completed contract checklist referencing Appendix A checklist items
+  - a completed contract checklist referencing `docs/API_Contract.md`
 
 #### M-11: Operator run-instructions quality (documentation quality)
 - **What it measures**: Whether the tool’s run instructions enable minimal human interaction.
@@ -218,6 +219,6 @@ Each run MUST record the following metrics.
 - If a metric cannot be measured, record **Unknown** and explain what evidence was missing.
 
 ### Overall scoring formula + comparison table schema
-This appendix intentionally matches the scoring model defined in the reference Pet Store harness; the PawMate domain changes should affect scores via correctness/determinism/ethics, not via tooling changes.
+This document intentionally matches the scoring model defined in the reference Pet Store harness; the PawMate domain changes should affect scores via correctness/determinism/ethics, not via tooling changes.
 
 

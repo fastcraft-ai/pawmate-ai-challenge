@@ -1,13 +1,13 @@
-# Appendix B — Deterministic Seed Data (Model A + Model B)
+# Deterministic Seed Data — Model A + Model B
 
 ## Purpose
-This appendix defines a **canonical deterministic seed dataset** to support reproducible demos and benchmarking across AI-generated implementations.
+This document defines a **canonical deterministic seed dataset** to support reproducible demos and benchmarking across AI-generated implementations.
 
 It supports:
 - Model A requirements: `REQ-DATA-0001-A`, `REQ-OPS-0001-A`, `REQ-OPS-0002-A`
-- Contract expectations in Appendix A (deterministic ordering, lifecycle enforcement, adoption workflow determinism, etc.)
+- Contract expectations in `docs/API_Contract.md` (deterministic ordering, lifecycle enforcement, adoption workflow determinism, etc.)
 
-This appendix is **technology-agnostic** and compatible with **REST or GraphQL** implementations.
+This document is **technology-agnostic** and compatible with **REST or GraphQL** implementations.
 
 ---
 
@@ -48,7 +48,7 @@ Model A seed MUST include at minimum:
   - At least 3 animals with **1 image**
   - At least 1 animal with **3 images** (seed-defined “max coverage”)
 
-> Note: Appendix C defines formal image constraints. For seed coverage, this appendix uses **up to 3 images per animal** to ensure at least one “max images” case exists in the baseline.
+> Note: `docs/Image_Handling.md` defines formal image constraints. For seed coverage, this document uses **up to 3 images per animal** to ensure at least one “max images” case exists in the baseline.
 
 ---
 
@@ -136,7 +136,7 @@ The seed MUST support deterministic verification that:
 - staff decision returns a **human-readable explanation** for at least one approval and at least one rejection,
 - at least one decision is marked as an **override** of the evaluation (overrodeEvaluation=true) and is auditable in history.
 
-> TODO (intentional): This appendix does not mandate the exact evaluation rule set. The contract MUST declare rule semantics so evaluation outcomes are testable and deterministic.
+> TODO (intentional): This document does not mandate the exact evaluation rule set. The contract MUST declare rule semantics so evaluation outcomes are testable and deterministic.
 
 ---
 
@@ -291,7 +291,7 @@ An implementation MUST satisfy all checks below for the selected model:
 
 #### D-04: Deterministic Collection Results
 - For a fixed dataset state and request parameters, collection operations return deterministic results:
-  - ListAnimals ordering and tie-break rules are explicit in the contract (Appendix A) and are observed in responses.
+  - ListAnimals ordering and tie-break rules are explicit in the contract (`docs/API_Contract.md`) and are observed in responses.
   - GetAnimalHistory ordering and tie-break rules are explicit in the contract and are observed in responses.
   - SearchAnimals ordering and tie-break rules are explicit in the contract (Model B) and are observed in responses.
 

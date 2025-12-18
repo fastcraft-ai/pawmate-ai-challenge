@@ -59,7 +59,7 @@ Model B requirements are expressed as **deltas** where helpful and are labeled w
 ## API-First + Contract Artifact
 - The API is the **system of record** (authoritative source of truth).
 - Implementers MAY provide a UI, but the API behavior is normative.
-- Implementers MUST produce an API contract artifact (REST: e.g., OpenAPI; GraphQL: schema). The specific artifact type is not mandated here; see Appendix A for requirements.
+- Implementers MUST produce an API contract artifact (REST: e.g., OpenAPI; GraphQL: schema). The specific artifact type is not mandated here; see `docs/API_Contract.md` for requirements.
 
 ## Error / Validation Principles
 The system MUST define and consistently apply:
@@ -99,7 +99,7 @@ Valid state transitions are:
 No other transitions are valid.
 
 ### Lifecycle Rules (Normative)
-- Invalid transitions MUST be prevented (observable as `Conflict` or `ValidationError` per Appendix A).
+- Invalid transitions MUST be prevented (observable as `Conflict` or `ValidationError` per `docs/API_Contract.md`).
 - All transitions MUST be auditable as append-only history events.
 - When an adoption application is submitted, the animal MUST move to `APPLICATION_PENDING` (unless contract explicitly defines multi-application behavior; see Adoption Workflow).
 - When a decision is recorded:
@@ -115,7 +115,7 @@ No other transitions are valid.
 Provide an API-first system of record for intake and management of Animals and their lifecycle state.
 
 #### Data & API Surface (Conceptual)
-Conceptual operations (REST endpoints or GraphQL operations are defined in Appendix A; this section defines required behavior):
+Conceptual operations (REST endpoints or GraphQL operations are defined in `docs/API_Contract.md`; this section defines required behavior):
 - Intake Animal (input: animal fields; initializes lifecycle state)
 - Update Animal (input: `animalId` + patch/update fields)
 - Get Animal (input: `animalId`)
@@ -128,7 +128,7 @@ Animal fields (conceptual; may be extended by implementer without changing requi
 - `ageYears` (number; contract-defined constraints)
 - `description` (free-text)
 - `tags[]` (list of tag values; optional but recommended for filtering)
-- `images[]` (0..N images or image references; see Appendix C)
+- `images[]` (0..N images or image references; see `docs/Image_Handling.md`)
 - `status` (lifecycle state; required)
 - Optional implementation fields: timestamps, intake metadata, etc. (MAY be added unless constrained elsewhere)
 
@@ -149,7 +149,7 @@ Error states MUST be observable in the API contract:
 - [Model A] REQ-API-0002-A MUST define deterministic ordering for list results for a given dataset state and request parameters (including deterministic tie-break rules).
 - [Model A] REQ-API-0003-A MUST support filtering Animals by at least `status` (lifecycle state) via the list operation.
 
-#### Acceptance Criteria Anchors (Traceability; see Appendix D)
+#### Acceptance Criteria Anchors (Traceability; see `docs/Acceptance_Criteria.md`)
 - AC-REQ-CORE-0001-A-01
 - AC-REQ-CORE-0002-A-01
 - AC-REQ-CORE-0003-A-01
@@ -267,8 +267,8 @@ Protected classes are jurisdiction-dependent; for this benchmark, the evaluation
 Ensure implementations are reproducible and benchmark-friendly by providing a deterministic seed dataset and a reliable reset-to-seed capability.
 
 #### Normative Requirements
-- [Model A] REQ-DATA-0001-A MUST define a deterministic seed dataset for Model A and describe its contents (details in Appendix B).
-- [Model A] REQ-OPS-0001-A MUST provide a reset-to-seed capability that restores the canonical baseline and is usable for fast demos/benchmarks (details in Appendix B).
+- [Model A] REQ-DATA-0001-A MUST define a deterministic seed dataset for Model A and describe its contents (details in `docs/Seed_Data.md`).
+- [Model A] REQ-OPS-0001-A MUST provide a reset-to-seed capability that restores the canonical baseline and is usable for fast demos/benchmarks (details in `docs/Seed_Data.md`).
 - [Model A] REQ-OPS-0002-A MUST define post-reset invariants (e.g., same baseline records/identifiers) and how to verify them.
 
 #### Acceptance Criteria Anchors
@@ -284,7 +284,7 @@ Allow associating images with Animals in a simple, maintainable way without rely
 
 #### Normative Requirements
 - [Model A] REQ-IMG-0001-A MUST support associating zero or more images with an Animal and returning those images (or image references) on animal read responses as defined in the API contract.
-- [Model A] REQ-IMG-0002-A MUST support adding and removing images for an Animal via the chosen API style (REST endpoints or GraphQL operations specified in Appendix A).
+- [Model A] REQ-IMG-0002-A MUST support adding and removing images for an Animal via the chosen API style (REST endpoints or GraphQL operations specified in `docs/API_Contract.md`).
 - [Model A] REQ-IMG-0003-A MUST NOT require any external integrations for image storage or delivery (e.g., external object storage or CDN services).
 
 #### Acceptance Criteria Anchors
@@ -303,7 +303,7 @@ Enable users to discover Animals via text search over animal content.
 #### Normative Requirements
 - [Model B] REQ-CORE-0101-B MUST provide a search capability that returns Animals matching a query string over at least `name` and `description`.
 - [Model B] REQ-API-0101-B MUST define deterministic ordering for search results for a given dataset state and request parameters (including deterministic tie-break rules).
-- [Model B] REQ-API-0102-B MUST define how search results are paginated and how pagination interacts with deterministic ordering (details in Appendix A).
+- [Model B] REQ-API-0102-B MUST define how search results are paginated and how pagination interacts with deterministic ordering (details in `docs/API_Contract.md`).
 - [Model B] REQ-API-0103-B MUST define validation rules for `query` (including max length) and MUST expose observable error behavior for invalid queries in the contract.
 
 ### User Accounts + Authentication

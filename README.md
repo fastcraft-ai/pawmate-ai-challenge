@@ -148,7 +148,7 @@ This creates:
 - TTFR ends when the system is runnable without operator code edits (see `docs/Benchmarking_Method.md`).
 
 ### 4) Determinism + acceptance (TTFC)
-- Run reset-to-seed twice and verify Appendix B golden checks (`docs/Seed_Data.md`).
+- Run reset-to-seed twice and verify golden checks in `docs/Seed_Data.md`.
 - Run acceptance checks for the selected model and save pass/fail evidence (`docs/Acceptance_Criteria.md`).
 
 ### 5) Required artifacts to keep
@@ -163,7 +163,7 @@ All artifacts should be saved in the run folder (`runs/YYYYMMDDTHHmm/`):
 - Overreach notes/evidence
 
 ### 6) Scoring and comparison
-- Score using `docs/Scoring_Rubric.md` (grounded in Appendix E metrics/evidence).
+- Score using `docs/Scoring_Rubric.md` (grounded in `docs/Benchmarking_Method.md` metrics/evidence).
 - Compare tools using `docs/Comparison_Report_Template.md`.
 
 ## Repository note (migration context)

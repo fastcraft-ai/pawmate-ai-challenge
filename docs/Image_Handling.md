@@ -1,12 +1,12 @@
-# Appendix C — Simple Image Handling (Model A + Model B)
+# Simple Image Handling — Model A + Model B
 
 ## Purpose
-This appendix defines **simple, minimal, maintainable** image handling requirements that satisfy:
+This document defines **simple, minimal, maintainable** image handling requirements that satisfy:
 - `docs/Master_Functional_Spec.md`: `REQ-IMG-0001-A`..`REQ-IMG-0003-A`
 - `docs/API_Contract.md`: image contract surface and error/determinism rules
 - `docs/Seed_Data.md`: seeded images IMG-0001..IMG-0004 and deterministic per-animal ordering expectations
 
-This appendix is **technology-agnostic** and compatible with **REST or GraphQL** implementations.
+This document is **technology-agnostic** and compatible with **REST or GraphQL** implementations.
 
 ---
 
@@ -21,7 +21,7 @@ Image handling MUST remain simple and MUST NOT require:
 ---
 
 ## Image Association Models (Acceptable Options)
-Implementers MUST choose **one** of the following abstract models and document the choice in the API contract artifact (Appendix A).
+Implementers MUST choose **one** of the following abstract models and document the choice in the API contract artifact (`docs/API_Contract.md`).
 
 **Critical requirement for both options:** The API MUST provide a way to retrieve image **content** (binary bytes) by `imageId`. This is required so that UI clients can render images without external dependencies.
 
@@ -69,20 +69,20 @@ Whenever an animal includes `images[]`, the order MUST be deterministic:
 - primary: `ordinal` ascending
 - tie-break: `imageId` (or stable reference) ascending
 
-This supports Appendix B seed verification (e.g., ANM-0003 has IMG-0002..IMG-0004 in deterministic order).
+This supports seed verification in `docs/Seed_Data.md` (e.g., ANM-0003 has IMG-0002..IMG-0004 in deterministic order).
 
 ---
 
 ## Mapping to Contract Artifact (Normative)
 The API contract artifact MUST:
 - declare which image model option is implemented (Option 1 or Option 2)
-- define all image-related operations required by Appendix A (add/remove/associate and retrieval semantics)
-- define request/response shapes and validation/error behaviors for image operations using the error categories in Appendix A
+- define all image-related operations required by `docs/API_Contract.md` (add/remove/associate and retrieval semantics)
+- define request/response shapes and validation/error behaviors for image operations using the error categories in `docs/API_Contract.md`
 
 ---
 
 ## Constraints (MUST unless noted otherwise)
-These constraints are selected to be simple, maintainable, and consistent with the seed dataset (Appendix B uses up to **3** images per animal).
+These constraints are selected to be simple, maintainable, and consistent with the seed dataset (`docs/Seed_Data.md` uses up to **3** images per animal).
 
 ### C-01: Maximum images per animal (MUST)
 - An animal MUST NOT have more than **3** associated images.
@@ -107,7 +107,7 @@ These constraints are selected to be simple, maintainable, and consistent with t
 ---
 
 ## Required Flows and Observable Error States (Normative)
-This section defines required behaviors for add/remove/retrieve flows. Concrete REST endpoints or GraphQL operations MUST be defined in the contract artifact (Appendix A).
+This section defines required behaviors for add/remove/retrieve flows. Concrete REST endpoints or GraphQL operations MUST be defined in the contract artifact (`docs/API_Contract.md`).
 
 ### F-01: Add image to animal
 **Inputs (conceptual):**
@@ -166,13 +166,13 @@ This requirement ensures that UI clients can render images for all seeded and ne
 ## Seed + Reset Interaction (Normative)
 
 ### Canonical Seeded Images
-The implementation MUST represent the following canonical seeded images and associations (from Appendix B):
+The implementation MUST represent the following canonical seeded images and associations (from `docs/Seed_Data.md`):
 - ANM-0002 has exactly 1 image: IMG-0001 (`fileName: milo-1.jpg`, `contentType: image/jpeg`, `ordinal: 1`)
 - ANM-0003 has exactly 3 images in deterministic order:
   - IMG-0002 (`bella-1.jpg`, `image/jpeg`, `ordinal: 1`)
   - IMG-0003 (`bella-2.jpg`, `image/jpeg`, `ordinal: 2`)
   - IMG-0004 (`bella-3.jpg`, `image/jpeg`, `ordinal: 3`)
-- At least 3 animals have zero images (Appendix B provides examples).
+- At least 3 animals have zero images (`docs/Seed_Data.md` provides examples).
 
 ### Reset-to-Seed Semantics for Images
 On reset-to-seed, the system MUST:

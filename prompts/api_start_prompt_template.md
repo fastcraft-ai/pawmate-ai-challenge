@@ -29,10 +29,10 @@
 You are an implementation agent for a reproducible benchmarking run. Your objective is to produce a complete implementation that satisfies the frozen spec **for the selected Target Model** and to generate a benchmark-ready artifact bundle (run instructions, contract artifact, acceptance and determinism evidence pointers).
 
 **⏱️ FIRST ACTION — Record Start Time:**
-Before doing anything else, record the current timestamp in ISO-8601 format as `generation_started`. Output it immediately in your first response, like this:
+Before doing anything else, record the current timestamp in **ISO-8601 UTC with milliseconds** (e.g., `YYYY-MM-DDTHH:MM:SS.sssZ`) as `generation_started`. Output it immediately in your first response, like this:
 
 ```
-generation_started: 2024-12-17T10:00:00Z
+generation_started: 2024-12-17T10:00:00.000Z
 ```
 
 This timestamp is critical for benchmarking and MUST be recorded before any code generation begins.
@@ -106,10 +106,10 @@ Your deliverable MUST include all of the following:
 - A working implementation for the selected Target Model.
 - Must be runnable from a clean workspace using non-interactive commands.
 
-#### 4.2 API Contract Artifact (Appendix A compliant) (MUST)
+#### 4.2 API Contract Artifact (`docs/API_Contract.md` compliant) (MUST)
 Produce exactly one contract artifact based on the selected API style:
-- If **REST**: OpenAPI (or equivalent machine-readable REST contract) that satisfies Appendix A.
-- If **GraphQL**: GraphQL schema that satisfies Appendix A.
+- If **REST**: OpenAPI (or equivalent machine-readable REST contract) that satisfies `docs/API_Contract.md`.
+- If **GraphQL**: GraphQL schema that satisfies `docs/API_Contract.md`.
 
 The contract artifact MUST explicitly define:
 - operations required for the selected model (animals, lifecycle transitions, applications/evaluation/decision, history; plus Model B deltas if selected)
@@ -118,34 +118,34 @@ The contract artifact MUST explicitly define:
 - pagination rules for collection operations
 - deterministic ordering + tie-break rules for collection operations
 
-#### 4.3 Deterministic Seed + Reset-to-Seed (Appendix B compliant) (MUST)
+#### 4.3 Deterministic Seed + Reset-to-Seed (`docs/Seed_Data.md` compliant) (MUST)
 You MUST implement and document a **non-interactive reset-to-seed** mechanism that:
 - restores the canonical seed dataset for the selected model
 - is idempotent (safe to run twice)
-- supports verification of Appendix B golden records and determinism checks
+- supports verification of `docs/Seed_Data.md` golden records and determinism checks
 
-#### 4.4 Image handling constraints (Appendix C compliant) (MUST)
-If the selected Target Model includes images, your implementation and contract MUST enforce Appendix C constraints, including:
+#### 4.4 Image handling constraints (`docs/Image_Handling.md` compliant) (MUST)
+If the selected Target Model includes images, your implementation and contract MUST enforce `docs/Image_Handling.md` constraints, including:
 - max 3 images per animal
 - allowed content types (`image/jpeg`, `image/png`, `image/webp`)
 - deterministic image ordering (primary `ordinal` asc, tie-break `imageId` asc)
 
-#### 4.5 Acceptance verification (Appendix D) (MUST)
-You MUST provide a benchmark-operator-friendly way to verify the implementation against Appendix D:
+#### 4.5 Acceptance verification (`docs/Acceptance_Criteria.md`) (MUST)
+You MUST provide a benchmark-operator-friendly way to verify the implementation against `docs/Acceptance_Criteria.md`:
 - Provide an "Acceptance Checklist" mapped to the relevant `AC-*` IDs for the selected model.
 - Provide commands or steps to produce observable evidence (logs/output) for each acceptance item.
 
 #### 4.6 Automated Tests (MUST)
 You MUST generate automated tests that:
-- Are mapped to Appendix D `AC-*` acceptance criteria IDs (use comments or test names to indicate the `AC-*` ID being tested)
+- Are mapped to `docs/Acceptance_Criteria.md` `AC-*` acceptance criteria IDs (use comments or test names to indicate the `AC-*` ID being tested)
 - Are runnable non-interactively via a single command (e.g., `npm test`, `pytest`, `mvn test`)
-- Cover both happy-path and error-path scenarios as specified in Appendix D
+- Cover both happy-path and error-path scenarios as specified in `docs/Acceptance_Criteria.md`
 - Produce clear pass/fail output that can be recorded as evidence
 
 Place tests under `{Workspace Path}/backend/` in an appropriate test folder for the chosen technology.
 
-#### 4.7 Benchmark artifact bundle (Appendix E) (MUST)
-You MUST produce operator-ready artifacts aligned to Appendix E:
+#### 4.7 Benchmark artifact bundle (`docs/Benchmarking_Method.md`) (MUST)
+You MUST produce operator-ready artifacts aligned to `docs/Benchmarking_Method.md`:
 - A run record skeleton capturing M-01..M-11 inputs (TTFR/TTFC, clarifications, reruns, interventions, etc.)
 - Run instructions that are copy/paste friendly (run, reset-to-seed, verify acceptance)
 - Evidence pointers for determinism checks and contract completeness checks
@@ -154,18 +154,20 @@ You MUST produce operator-ready artifacts aligned to Appendix E:
 You MUST produce a single comparison-ready document at `{Workspace Path}/benchmark/ai_run_report.md` that includes:
 - **Run configuration**: Copy of the run.config contents (from `{Workspace Path}/../run.config`)
 - **Tech stack**: Backend language/framework, database, and any key libraries used
-- **Timestamps** (ISO-8601 format) recorded at these checkpoints:
+- **Timestamps** (**ISO-8601 UTC with milliseconds**, e.g. `2025-12-17T22:59:33.123Z`) recorded at these checkpoints:
   - `generation_started`: When you began generating code
   - `code_complete`: When all code files have been written
   - `build_clean`: When the build succeeds with no errors
   - `seed_loaded`: When seed data is loaded and verified
-  - `app_started`: When the application starts with no errors
+  - `app_started`: When **you start the API/application process** with no errors **and verify it responds** (e.g., health check) as part of your own run workflow
   - `tests_run_N`: Each test run attempt with pass percentage (e.g., `tests_run_1: 2024-12-17T10:30:00Z (85% pass)`)
   - `all_tests_pass`: When all tests pass
 - **Test summary**: Total tests, passed, failed, and final pass rate
 - **Artifact paths**: Paths to contract, run instructions, acceptance checklist, and evidence folders
 
 This report enables direct comparison between different AI tool runs.
+
+**Timestamp integrity rule:** If you report any `tests_run_N` timestamp, the API MUST already be running for that test run. In that case, `app_started` MUST be set (not `Unknown`) and MUST be \(\le\) `tests_run_1`.
 
 ---
 
@@ -188,7 +190,7 @@ After generating all code, you MUST execute the following loop-until-green workf
 1. Start the application **in the background** (so it keeps running)
 2. If start errors occur, fix and restart
 3. Verify the API responds to a basic health/query check
-4. Record timestamp for `app_started`
+4. Record timestamp for `app_started` **at the moment the API is confirmed running and responsive**
 5. **Leave the API running** — do NOT stop it after tests pass
 
 #### 5.4 Test Loop
@@ -210,8 +212,8 @@ Provide a single "Run Instructions" section at `{Workspace Path}/benchmark/run_i
 - test command
 - reset-to-seed command/mutation
 - verification commands/steps for:
-  - seed invariants (Appendix B)
-  - acceptance checks (Appendix D)
+  - seed invariants (`docs/Seed_Data.md`)
+  - acceptance checks (`docs/Acceptance_Criteria.md`)
 
 If you cannot make instructions fully non-interactive, record a clearly labeled `ASM-####` and explain why, but avoid this unless strictly necessary.
 
@@ -228,7 +230,7 @@ At completion, output a final "Run Summary" with:
   - reset-to-seed mechanism
   - acceptance checklist / evidence
   - automated tests
-  - run folder bundle contents (Appendix E artifacts)
+  - run folder bundle contents (artifacts required by `docs/Benchmarking_Method.md`)
 
 Do NOT claim completion without providing these paths.
 
@@ -244,10 +246,10 @@ At the end of this run:
 ---
 
 ### 9) Start Now
-**YOUR VERY FIRST OUTPUT must include the `generation_started` timestamp:**
+**YOUR VERY FIRST OUTPUT must include the `generation_started` timestamp (ISO-8601 UTC with milliseconds):**
 
 ```
-generation_started: [current ISO-8601 timestamp]
+generation_started: [current ISO-8601 UTC timestamp with milliseconds, e.g. 2025-12-17T22:59:33.123Z]
 ```
 
 Then confirm you understand the constraints above and begin implementation for the selected Target Model and API Style.
