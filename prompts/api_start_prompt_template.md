@@ -54,7 +54,7 @@ This run MUST be treated as fully independent:
 - Reserve `{Workspace Path}/ui/` for UI (generated separately via the UI start prompt)
 - Place benchmark artifacts under: `{Workspace Path}/benchmark/`
 
-You MUST work strictly within scope and MUST NOT invent requirements. If something is ambiguous, you MUST either ask a clarification question or record the smallest compliant assumption as an explicit `ASM-####`.
+You MUST work strictly within scope and MUST NOT invent requirements. If something is ambiguous, you MUST record the smallest compliant assumption as an explicit `ASM-####` and proceed.
 
 ---
 
@@ -63,7 +63,8 @@ You MUST work strictly within scope and MUST NOT invent requirements. If somethi
 - You MUST NOT pause to ask "should I create this file?" or similar confirmations.
 - You MUST write files immediately without waiting for human approval.
 - You MUST proceed continuously through implementation without unnecessary stops.
-- The only acceptable pauses are for genuine clarification questions about ambiguous requirements.
+- You MUST NOT pause and request operator input (e.g., “click Keep All”, “confirm”, “type continue”). Assume the operator is **not available**.
+- If a requirement is ambiguous, default to the **smallest reasonable compliant** interpretation, label it `ASM-####`, and keep going.
 
 Pausing for file-creation confirmations corrupts the timing measurements that compare tools.
 
@@ -95,7 +96,7 @@ You MUST comply with all `NOR-*` items in the Master Spec. In particular:
 #### 3.2 Assumptions (`ASM-*`)
 - Any assumption MUST be explicitly labeled `ASM-####` and listed in an "Assumptions" section.
 - Assumptions MUST be the smallest reasonable interpretation that remains compliant.
-- If you need operator input, ask a clarification question and wait.
+- You MUST NOT ask for operator input or wait for a response. Use `ASM-####` and proceed.
 
 ---
 

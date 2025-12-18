@@ -37,7 +37,8 @@ Each run MUST use a standardized wrapper that:
 - **Pins the frozen spec reference** and states which files are in-scope inputs.
 - **Declares run independence**: the tool MUST NOT reference, rely on, or mention previous runs, earlier chats, or other run folders.
 - **Restates the overreach guardrail**: do not implement beyond `REQ-*` and respect `NOR-*`.
-- **Requires explicit assumptions** labeled `ASM-*` when the spec is ambiguous.
+- **Requires explicit assumptions** labeled `ASM-*` when the spec is ambiguous (default to the smallest compliant interpretation and proceed).
+- **Requires zero operator interaction during generation**: the tool MUST NOT pause for confirmations or require the operator to type “continue” or approve changes mid-run.
 - **Requires a contract artifact** compliant with `docs/API_Contract.md`.
 - **Requires reset-to-seed + determinism behavior** per `docs/Seed_Data.md` (including operator-friendly reset instructions).
 - **Requires acceptance verification** against `docs/Acceptance_Criteria.md` for the selected model.
@@ -64,6 +65,8 @@ During the run:
 - Log each clarification question the tool asks (copy the question verbatim).
 - Log each explicit assumption the tool makes (as `ASM-*`), if provided in its outputs.
 - If the operator answers questions, record each answer verbatim.
+
+> Benchmark expectation: A high-quality run should require **no clarifications**. Tools SHOULD default to `ASM-*` assumptions and proceed rather than blocking on operator input.
 
 ### 4) Track reruns and interventions (operator)
 If the tool’s output does not lead to a runnable system:
