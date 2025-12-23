@@ -79,10 +79,13 @@ You MUST treat the following files (located under the **Spec Root**) as the sole
 - `{Spec Root}/docs/Image_Handling.md`
 - `{Spec Root}/docs/Acceptance_Criteria.md`
 - `{Spec Root}/docs/Benchmarking_Method.md`
+- `{Spec Root}/docs/SANDBOX_SOLUTION.md` **← Required for handling sandbox restrictions during build**
 
 If any behavior is not required by a `REQ-*` item, it is out of scope unless explicitly allowed by `MAY`.
 
 **NOTE:** `UI_Requirements.md` documents the expected API contract from a UI client perspective. While implementing the API, ensure your endpoint patterns, field names, and parameter placements match what UI clients will expect. This ensures future UI implementations integrate smoothly.
+
+**NOTE:** `SANDBOX_SOLUTION.md` provides critical guidance for executing the build loop (npm install) within sandbox environments. You MUST reference this document if you encounter network access restrictions during the build step.
 
 ---
 
@@ -109,6 +112,12 @@ To ensure reliable and comparable benchmarking results, you MUST use the followi
 - All npm commands MUST work non-interactively in restricted environments
 - You MUST NOT create shell scripts for workflow execution (the AI tool executes commands directly via `run_terminal_cmd`)
 - All commands MUST be executable directly via terminal without manual intervention
+
+**CRITICAL — Network Access for npm install:**
+- The `npm install` step requires network access to download dependencies
+- If you encounter sandbox network restrictions, you MUST request network permissions using `required_permissions: ['network']`
+- See `docs/SANDBOX_SOLUTION.md` for detailed guidance on handling sandbox restrictions during the build loop
+- The build loop MUST complete successfully before proceeding to seed, start, or test steps
 
 #### 3.1 Overreach guardrails (`NOR-*`)
 You MUST comply with all `NOR-*` items in the Master Spec. In particular:
@@ -215,11 +224,16 @@ This report enables direct comparison between different AI tool runs.
 After generating all code, you MUST execute the following loop-until-green workflow:
 
 #### 5.1 Build Loop
-1. Execute `npm install` in the backend directory using `run_terminal_cmd` (or equivalent terminal command execution)
-2. If npm install fails due to sandbox restrictions, ensure `.npmrc` is configured correctly (see section 3.0) and retry
-3. If build errors occur, fix them and rebuild
+1. Execute `npm install` in the backend directory using `run_terminal_cmd` with `required_permissions: ['network']` (or equivalent terminal command execution)
+2. If npm install fails due to sandbox network restrictions:
+   - Ensure `.npmrc` is configured correctly (see section 3.0)
+   - Retry with `required_permissions: ['network']` explicitly specified
+   - See `docs/SANDBOX_SOLUTION.md` for detailed troubleshooting guidance
+3. If build errors occur (non-network related), fix them and rebuild
 4. Repeat until build succeeds with no errors
 5. Record timestamp for `build_clean` when `npm install` completes successfully
+
+**Note:** Network access is required for `npm install` to download dependencies. You MUST request network permissions using `required_permissions: ['network']` in your `run_terminal_cmd` call. Refer to `docs/SANDBOX_SOLUTION.md` for best practices and alternative approaches.
 
 #### 5.2 Seed + Verify Loop
 1. Run reset-to-seed
