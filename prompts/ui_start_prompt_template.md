@@ -233,14 +233,12 @@ At completion, output a "UI Run Summary" at `{Workspace Path}/benchmark/ui_run_s
 - UI technology stack used
 - List of any assumptions (`ASM-*`)
 - List of any backend changes made (if any)
-- **LLM Usage** (if available from tool):
-  - `input_tokens`: Total input tokens used
-  - `output_tokens`: Total output tokens used
-  - `total_tokens`: Sum of input and output tokens
-  - `requests_count`: Number of API requests made
-  - `estimated_cost_usd`: Estimated cost in USD (if calculable)
-  - `cost_currency`: Currency code (default: USD)
+- **LLM Usage** (operator must record):
+  - `ui_model_used`: Model name/version used (e.g., "claude-sonnet-4.5", "gpt-4-turbo")
+  - `ui_requests`: Total number of LLM API requests made for UI generation
+  - `ui_tokens`: Total tokens used for UI generation (input + output combined)
   - `usage_source`: Source of data (`tool_reported`, `operator_estimated`, or `unknown`)
+  - *Optional*: `estimated_cost_usd`, `input_tokens`, `output_tokens` if available separately
 - Paths to:
   - UI source folder
   - Updated run instructions
@@ -303,7 +301,10 @@ Before completing this run, you MUST prompt the operator to check their LLM usag
 **For the operator:**
 1. **Check your current LLM usage/billing status NOW** (before the UI run completes)
 2. After the run completes, check again to determine the usage for this run
-3. Record the usage metrics in the UI run summary if available from your tool
+3. **Record the following metrics in the UI run summary**:
+   - `ui_model_used`: Model name/version (e.g., "claude-sonnet-4.5", "gpt-4-turbo")
+   - `ui_requests`: Total number of LLM API requests made for UI generation
+   - `ui_tokens`: Total tokens used for UI generation (input + output combined)
 
 **Tool-specific usage checking instructions:**
 - **Cursor**: Check Cursor Settings → Usage/Billing, or visit the Cursor dashboard/account page
@@ -317,11 +318,10 @@ Before completing this run, you MUST prompt the operator to check their LLM usag
 ```
 ⚠️  LLM USAGE TRACKING REQUIRED
 
-Before marking this UI run as complete, please:
-1. Check your current LLM plan usage/billing status
-2. Note the current token/request counts or cost
-3. After completion, check again to calculate the difference
-4. Record usage metrics in the UI run summary if available
+Before marking this UI run as complete, please record:
+- ui_model_used: [Model name/version]
+- ui_requests: [Number of LLM API requests for UI]
+- ui_tokens: [Total tokens used for UI]
 
 Tool: [Detected tool name]
 Check usage at: [Tool-specific instructions based on detected tool]

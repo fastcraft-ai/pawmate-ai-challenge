@@ -401,14 +401,12 @@ You MUST produce a single comparison-ready document at `{Workspace Path}/benchma
   - `all_tests_pass`: When all tests pass (timestamp of final successful test run)
 - **Test summary**: Total tests, passed, failed, and final pass rate (from the last test run)
 - **Test iterations**: Count of how many times tests were run before all passed
-- **LLM Usage** (if available from tool):
-  - `input_tokens`: Total input tokens used
-  - `output_tokens`: Total output tokens used
-  - `total_tokens`: Sum of input and output tokens
-  - `requests_count`: Number of API requests made
-  - `estimated_cost_usd`: Estimated cost in USD (if calculable)
-  - `cost_currency`: Currency code (default: USD)
+- **LLM Usage** (operator must record):
+  - `backend_model_used`: Model name/version used (e.g., "claude-sonnet-4.5", "gpt-4-turbo")
+  - `backend_requests`: Total number of LLM API requests made
+  - `backend_tokens`: Total tokens used (input + output combined)
   - `usage_source`: Source of data (`tool_reported`, `operator_estimated`, or `unknown`)
+  - *Optional*: `estimated_cost_usd`, `input_tokens`, `output_tokens` if available separately
 - **Artifact paths**: Paths to contract, run instructions, acceptance checklist, and evidence folders
 
 This report enables direct comparison between different AI tool runs.
@@ -537,7 +535,10 @@ Before completing this run, you MUST prompt the operator to check their LLM usag
 **For the operator:**
 1. **Check your current LLM usage/billing status NOW** (before the run completes)
 2. After the run completes, check again to determine the usage for this run
-3. Record the usage metrics in the AI run report if available from your tool
+3. **Record the following metrics in the AI run report**:
+   - `backend_model_used`: Model name/version (e.g., "claude-sonnet-4.5", "gpt-4-turbo")
+   - `backend_requests`: Total number of LLM API requests made
+   - `backend_tokens`: Total tokens used (input + output combined)
 
 **Tool-specific usage checking instructions:**
 - **Cursor**: Check Cursor Settings → Usage/Billing, or visit the Cursor dashboard/account page
@@ -551,11 +552,10 @@ Before completing this run, you MUST prompt the operator to check their LLM usag
 ```
 ⚠️  LLM USAGE TRACKING REQUIRED
 
-Before marking this run as complete, please:
-1. Check your current LLM plan usage/billing status
-2. Note the current token/request counts or cost
-3. After completion, check again to calculate the difference
-4. Record usage metrics in the AI run report if available
+Before marking this backend run as complete, please record:
+- backend_model_used: [Model name/version]
+- backend_requests: [Number of LLM API requests]
+- backend_tokens: [Total tokens used]
 
 Tool: [Detected tool name]
 Check usage at: [Tool-specific instructions based on detected tool]

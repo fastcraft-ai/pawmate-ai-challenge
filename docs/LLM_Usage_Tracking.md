@@ -22,10 +22,9 @@ This document provides tool-specific instructions for checking LLM usage metrics
 4. Alternatively, visit the Cursor dashboard/account page in your browser
 
 **What to record:**
-- Input tokens used
-- Output tokens used
-- Total tokens
-- Number of requests (if available)
+- Model name/version used (e.g., "claude-sonnet-4.5")
+- Total tokens used (input + output combined)
+- Number of requests
 - Estimated cost (if available)
 
 **Note**: Cursor may show usage in the settings or require checking the account dashboard online.
@@ -39,7 +38,8 @@ This document provides tool-specific instructions for checking LLM usage metrics
 4. Alternatively, check your GitHub account billing page
 
 **What to record:**
-- Token usage (if available)
+- Model name/version used
+- Total token usage (if available)
 - Request count (if available)
 - Billing/cost information
 
@@ -54,7 +54,8 @@ This document provides tool-specific instructions for checking LLM usage metrics
 4. Review billing information if available
 
 **What to record:**
-- Token usage
+- Model name/version used
+- Total token usage
 - Request count
 - Cost information (if available)
 
@@ -68,24 +69,48 @@ For tools not listed above:
 
 ## Recording Usage in Result Files
 
-Usage metrics should be recorded in the AI run report (`benchmark/ai_run_report.md`) under the "LLM Usage" section:
+Usage metrics should be recorded in the AI run report (`benchmark/ai_run_report.md`) and UI run summary (`benchmark/ui_run_summary.md`) under the "LLM Usage" section:
+
+### Backend/API Run
 
 ```markdown
 ## LLM Usage
 
-- **Input Tokens**: 125000
-- **Output Tokens**: 45000
-- **Total Tokens**: 170000
-- **Requests Count**: 45
-- **Estimated Cost (USD)**: 2.50
-- **Cost Currency**: USD
-- **Usage Source**: tool_reported
+- **backend_model_used**: claude-sonnet-4.5
+- **backend_requests**: 45
+- **backend_tokens**: 170000
+- **usage_source**: tool_reported
+- **estimated_cost_usd**: 2.50 (optional)
 ```
+
+### UI Run
+
+```markdown
+## LLM Usage
+
+- **ui_model_used**: claude-sonnet-4.5
+- **ui_requests**: 12
+- **ui_tokens**: 48000
+- **usage_source**: tool_reported
+- **estimated_cost_usd**: 0.85 (optional)
+```
+
+### Required Fields
+
+- `backend_model_used` / `ui_model_used`: Model name and version (e.g., "claude-sonnet-4.5", "gpt-4-turbo", "claude-3-opus")
+- `backend_requests` / `ui_requests`: Total number of LLM API requests made
+- `backend_tokens` / `ui_tokens`: Total tokens used (input + output combined)
+- `usage_source`: How the data was obtained (see Usage Source Values below)
+
+### Optional Fields
+
+- `estimated_cost_usd`: Estimated cost in USD (if calculable)
+- Individual token breakdowns (input/output) can be included as additional fields if desired
 
 If metrics are not available from the tool:
 - Set `usage_source` to `operator_estimated` if you manually calculated
 - Set `usage_source` to `unknown` if no data is available
-- Leave numeric fields empty or set to null
+- Leave numeric fields empty or note as "unknown"
 
 ## Usage Source Values
 

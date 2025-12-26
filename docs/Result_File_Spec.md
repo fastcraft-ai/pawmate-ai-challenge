@@ -55,13 +55,14 @@ Result files MUST be JSON (`.json`) files containing structured data.
       ],
       "test_iterations_count": "integer",
       "llm_usage": {
-        "input_tokens": "integer or null",
-        "output_tokens": "integer or null",
-        "total_tokens": "integer or null",
-        "requests_count": "integer or null",
-        "estimated_cost_usd": "number or null",
-        "cost_currency": "string (default: USD)",
-        "usage_source": "tool_reported|operator_estimated|unknown"
+        "backend_model_used": "string (e.g., 'claude-sonnet-4.5', 'gpt-4-turbo')",
+        "backend_requests": "integer or null",
+        "backend_tokens": "integer or null",
+        "ui_model_used": "string or null (if UI was implemented)",
+        "ui_requests": "integer or null",
+        "ui_tokens": "integer or null",
+        "usage_source": "tool_reported|operator_estimated|unknown",
+        "estimated_cost_usd": "number or null (optional)"
       },
       "acceptance": {
         "model": "A",

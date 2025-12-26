@@ -230,14 +230,21 @@ Each run MUST record the following metrics.
   - notes on any missing steps, ambiguities, or interactive prompts encountered
 
 #### M-11a: LLM Usage Tracking
-- **What it measures**: Token usage, request counts, and estimated costs for the LLM used during implementation.
+- **What it measures**: Model used, token usage, request counts, and estimated costs for the LLM used during implementation.
 - **How to measure**:
-  - Record input tokens, output tokens, total tokens
-  - Record number of API requests made
+  - **Backend/API run**: Record `backend_model_used`, `backend_requests`, `backend_tokens`
+  - **UI run** (if applicable): Record `ui_model_used`, `ui_requests`, `ui_tokens`
   - Record estimated cost (if available)
   - Note usage source: `tool_reported`, `operator_estimated`, or `unknown`
+- **Required fields**:
+  - `backend_model_used`: Model name and version (e.g., "claude-sonnet-4.5", "gpt-4-turbo")
+  - `backend_requests`: Total number of LLM API requests for backend
+  - `backend_tokens`: Total tokens used for backend (input + output combined)
+  - `ui_model_used`: Model name and version for UI (if UI was implemented)
+  - `ui_requests`: Total number of LLM API requests for UI
+  - `ui_tokens`: Total tokens used for UI (input + output combined)
 - **Required evidence**:
-  - LLM usage metrics in AI run report (if tool provides them)
+  - LLM usage metrics in AI run report and UI run summary (if tool provides them)
   - Operator notes on how usage was determined (if manually calculated)
 - **Note**: This metric is optional but encouraged. Operators should check their plan usage before and after runs to determine actual costs.
 
