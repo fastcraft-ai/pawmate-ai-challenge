@@ -2,16 +2,40 @@
 
 ## Overview
 
-This guide explains how to submit benchmark results for inclusion in the comparison database. Results are collected via git-based submission, validated automatically, and compiled into comparison reports.
+This guide explains how to submit benchmark results for inclusion in the comparison database. External developers submit results via email, while maintainers with repo access can use git-based submission.
 
-## Quick Start
+## Quick Submit (Recommended for External Developers)
+
+The easiest way to submit your benchmark results:
+
+1. **Complete your benchmark run** (API and optionally UI)
+2. **Generate result file**: `./scripts/generate_result_file.sh --run-dir runs/YYYYMMDDTHHmm`
+3. **Submit via email**: `./scripts/submit_result.sh your-result-file.json`
+
+The submission script will:
+- Validate your result file
+- Prompt for optional attribution (name/GitHub username)
+- Open your email client with pre-filled content
+- Provide manual instructions if automatic email fails
+
+### Privacy & Attribution
+
+- **Anonymous submission is allowed**: You can skip the attribution prompt to submit anonymously
+- **Optional identification**: Provide your name or GitHub username if you want to be credited
+- **Your choice**: The decision is entirely yours
+
+The submission email is stored in `.submission.config` (defaults to: `pawmate.ai.challenge@gmail.com`)
+
+## Traditional Git-Based Submission (For Maintainers)
+
+If you have write access to the `pawmate-ai-results` repository, you can submit via pull request:
 
 1. **Complete your benchmark run** (API and optionally UI)
 2. **Generate result file**: `./scripts/generate_result_file.sh --run-dir runs/YYYYMMDDTHHmm`
 3. **Complete and validate**: Review the file, fill in metrics, then validate
 4. **Submit via PR**: Commit, push, and create a pull request
 
-## Detailed Steps
+## Email Submission Workflow (Detailed)
 
 ### Step 1: Generate Result File
 
@@ -27,9 +51,64 @@ This script:
 - Extracts metrics from your AI run report (if available)
 - Generates a standardized result file (defaults to current directory)
 - Names the file according to the convention: `{tool-slug}_{model}_{api-type}_{run-number}_{timestamp}.json`
-- **Note**: Copy the generated file to `pawmate-ai-results/results/submitted/` for processing
 
 **Output**: The script will tell you the path to the generated file and next steps.
+
+### Step 2: Submit via Email Script
+
+Run the submission script:
+
+```bash
+./scripts/submit_result.sh your-result-file.json
+```
+
+The script will:
+
+1. **Validate your result file**:
+   - Check JSON format
+   - Verify filename convention
+   - Check for required fields
+   - Display validation results
+
+2. **Prompt for attribution (optional)**:
+   - Enter your name or GitHub username if you want credit
+   - Press Enter to submit anonymously
+   - Your choice is completely optional
+
+3. **Open your email client**:
+   - Pre-filled email with subject and body
+   - Includes submission metadata
+   - **Important**: You must manually attach the result file
+   
+4. **Fallback instructions**:
+   - If email client doesn't open automatically
+   - Clear manual instructions are displayed
+   - Copy-paste friendly format
+
+**Important**: The script opens your email client but cannot attach the file automatically. You must attach the result file manually before sending.
+
+### Step 3 (Alternative): Manual Email Submission
+
+If you prefer not to use the script, you can submit manually:
+
+1. **Email to**: `pawmate.ai.challenge@gmail.com` (or the configured submission email)
+2. **Subject**: `[PawMate Result] {your-filename-without-.json}`
+3. **Attach**: Your result JSON file
+4. **Optional**: Include your name/GitHub username in the email body
+
+### Step 4: Confirmation
+
+After submitting, you should receive a confirmation that your result has been received and will be processed.
+
+---
+
+## Git-Based Submission Workflow (For Maintainers)
+
+This section is for maintainers who have write access to the `pawmate-ai-results` repository.
+
+### Step 1: Generate Result File
+
+Same as email submission workflow above.
 
 ### Step 2: Complete Result File
 
@@ -96,7 +175,7 @@ cd /path/to/pawmate-ai-results
 ./scripts/validate_result.sh results/submitted/your-result-file.json --strict
 ```
 
-### Step 4: Submit via Git
+### Step 4: Submit via Git (Maintainers with Repo Access)
 
 #### Option A: Automated (Recommended)
 
@@ -150,34 +229,36 @@ If your AI tool generated the result file automatically:
 
 ## What Happens After Submission
 
-### Automatic Validation
+### Email Submissions
+
+After you email your result file:
+1. **Receipt**: The maintainer receives your result file via email
+2. **Processing**: The file is processed and added to the results database
+3. **Validation**: The result is validated against the schema
+4. **Compilation**: Results are aggregated into comparison reports
+5. **Publication**: Your results appear in the compiled reports (attribution as specified)
+
+### Git-Based Submissions (PR workflow)
 
 When you create a PR with result files:
-- GitHub Actions runs `validate-results.yml`
+- GitHub Actions runs `validate-results.yml` (if configured)
 - Validates file format, schema, and data
 - Comments on PR with validation status
 - Blocks merge if validation fails
 
-### Automatic Compilation
-
-After your PR is merged to the `pawmate-ai-results` repository:
-- GitHub Actions runs `compile-results.yml` (if configured)
+After merge:
 - Aggregates all results by spec version, model, and API type
 - Generates comparison reports in `results/compiled/`
-- Commits reports back to the repository
-
-Alternatively, you can generate reports locally:
-```bash
-cd /path/to/pawmate-ai-results
-python3 scripts/aggregate_results.py --input-dir results/submitted --output-dir results/compiled
-```
+- Commits reports back to the repository (if configured)
 
 ### Comparison Reports
 
 Comparison reports show:
 - Side-by-side tool comparisons
-- Score breakdowns (C, R, D, E, S, K)
 - Timing comparisons (TTFR, TTFC)
+- Test iteration counts
+- LLM usage metrics
+- Acceptance pass rates
 - Detailed metrics and evidence pointers
 
 ## Result File Format
@@ -230,6 +311,23 @@ If you cannot determine a metric value:
 - Explain why in the human-readable section
 - Reference missing evidence
 
+### Submission Script Issues
+
+**Error: "Email client could not be opened"**
+- Use the manual instructions displayed by the script
+- Email address, subject, and file path are shown clearly
+- Compose email manually in your preferred email application
+
+**Script validation fails**
+- Review the validation errors displayed
+- Fix issues in your result file
+- Re-run the submission script
+
+**Want to change submission email**
+- Edit `.submission.config` in the repository root
+- Set `SUBMISSION_EMAIL=your-email@example.com`
+- File is gitignored for local customization
+
 ## Best Practices
 
 1. **Complete Run 1 and Run 2** before submitting (for reproducibility scoring)
@@ -242,11 +340,11 @@ If you cannot determine a metric value:
 ## Resources
 
 - `docs/Result_File_Spec.md` - Complete specification
-- `docs/Scoring_Rubric.md` - Score calculation rules
 - `docs/Benchmarking_Method.md` - Metric definitions
-- `results/result_template.json` - Template file
 - `scripts/generate_result_file.sh` - Generation script
-- `scripts/validate_result.sh` - Validation script
+- `scripts/submit_result.sh` - Email submission script
+- `scripts/validate_result.sh` - Validation script (in pawmate-ai-results repo)
+- `.submission.config.template` - Email configuration template
 
 ## Support
 

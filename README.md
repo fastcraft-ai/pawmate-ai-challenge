@@ -206,5 +206,25 @@ All artifacts should be saved in the run folder (`runs/YYYYMMDDTHHmm/`):
 - Score using `docs/Scoring_Rubric.md` (grounded in `docs/Benchmarking_Method.md` metrics/evidence).
 - Compare tools using `docs/Comparison_Report_Template.md`.
 
+### 7) Submit your results (optional)
+
+Want to contribute your benchmark results to the community? Submit them for inclusion in comparison reports:
+
+```bash
+# Generate result file
+./scripts/generate_result_file.sh --run-dir runs/YYYYMMDDTHHmm
+
+# Submit via email
+./scripts/submit_result.sh your-result-file.json
+```
+
+The submission script will:
+- Validate your result file
+- Prompt for optional attribution (or submit anonymously)
+- Open your email client with pre-filled content
+- Guide you through the submission process
+
+See **[docs/Submitting_Results.md](docs/Submitting_Results.md)** for detailed instructions and alternative submission methods.
+
 ## Repository note
 - The **PawMate** canonical spec lives in `docs/` at the repository root.

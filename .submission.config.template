@@ -1,0 +1,7 @@
+# Submission Configuration Template
+# Copy this file to .submission.config and customize as needed
+# The .submission.config file is gitignored for local customization
+
+# Email address for result submissions
+SUBMISSION_EMAIL=pawmate.ai.challenge@gmail.com
+
