@@ -4,6 +4,8 @@
 
 This guide explains how to submit benchmark results for inclusion in the comparison database. External developers submit results via email, while maintainers with repo access can use git-based submission.
 
+**Viewing Results**: After submission, aggregated results are published in the [`pawmate-ai-results`](https://github.com/rsdickerson/pawmate-ai-results) repository. See the [Viewing Aggregated Results](#viewing-aggregated-results) section below for details.
+
 ## Quick Submit (Recommended for External Developers)
 
 The easiest way to submit your benchmark results:
@@ -239,6 +241,45 @@ After you email your result file:
 2. **Processing**: The file is processed and added to the results database
 3. **Validation**: The result is validated against the schema
 4. **Compilation**: Results are aggregated into comparison reports
+
+## Viewing Aggregated Results
+
+After submitting your results, you can view aggregated results and comparisons in the **`pawmate-ai-results`** repository:
+
+### Repository Location
+
+**GitHub Repository**: `pawmate-ai-results`  
+**URL**: `https://github.com/rsdickerson/pawmate-ai-results` (or your configured results repository)
+
+### What's Available
+
+The results repository contains:
+
+- **Individual Result Files**: All submitted benchmark runs in `results/submitted/`
+- **Aggregated Reports**: Comparison reports and summaries in `results/compiled/`
+- **Leaderboards**: Performance rankings and statistics
+- **Schema Documentation**: Result file schema definitions in `schemas/`
+
+### How to View Results
+
+1. **Browse on GitHub**: Visit the repository to view individual result files and compiled reports
+2. **GitHub Pages** (if enabled): View an interactive dashboard at:
+   ```
+   https://rsdickerson.github.io/pawmate-ai-results/
+   ```
+3. **Clone Locally**: Clone the repository to analyze results locally:
+   ```bash
+   git clone https://github.com/rsdickerson/pawmate-ai-results.git
+   cd pawmate-ai-results
+   ```
+
+### Repository Access
+
+- **Public Read Access**: Everyone can view results
+- **Maintainer-Only Writes**: Only the challenge maintainer can add/modify results
+- **Read-Only for Participants**: Results are append-only to ensure integrity
+
+This ensures all published results are trustworthy and cannot be modified retroactively.
 5. **Publication**: Your results appear in the compiled reports (attribution as specified)
 
 ### Git-Based Submissions (PR workflow)

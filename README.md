@@ -99,6 +99,22 @@ cd /path/to/pawmate-ai-results
 
 See [`docs/Submitting_Results.md`](docs/Submitting_Results.md) for detailed submission instructions.
 
+### 7. View Aggregated Results
+
+After submitting your results, view aggregated results and comparisons:
+
+**Results Repository**: `pawmate-ai-results`  
+**GitHub**: `https://github.com/rsdickerson/pawmate-ai-results`  
+**GitHub Pages** (if enabled): `https://rsdickerson.github.io/pawmate-ai-results/`
+
+The results repository contains:
+- Individual submitted result files
+- Aggregated comparison reports
+- Leaderboards and performance statistics
+- Schema documentation
+
+**Note**: The results repository is public for viewing but maintainer-only for writes to ensure result integrity.
+
 ---
 
 ## About the PawMate Specification

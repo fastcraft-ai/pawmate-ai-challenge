@@ -665,6 +665,8 @@ This script will:
 
 **Note**: The `submit_result.sh` script validates the file automatically, so separate validation is not required.
 
+**Viewing Results**: After submission, aggregated results are published in the `pawmate-ai-results` repository for public viewing. See the challenge documentation for the repository URL and viewing instructions.
+
 #### 8.5.4 Alternative: Git-Based Submission (For Maintainers Only)
 **Only for maintainers with write access to the `pawmate-ai-results` repository:**
 
