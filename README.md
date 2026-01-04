@@ -12,6 +12,19 @@ This is an **operator's toolkit** for running AI benchmarking experiments:
 
 This is **not** an application implementation. The AI tool you're testing will generate the PawMate application during the benchmark run.
 
+## 📚 Documentation
+
+**Complete documentation:** https://rsdickerson.github.io/pawmate-ai-challenge/
+
+Quick links:
+- [Getting Started](https://rsdickerson.github.io/pawmate-ai-challenge/getting-started)
+- [Run Benchmark](https://rsdickerson.github.io/pawmate-ai-challenge/run-benchmark)
+- [Submit Results](https://rsdickerson.github.io/pawmate-ai-challenge/submit-results)
+- [CLI Reference](https://rsdickerson.github.io/pawmate-ai-challenge/cli-reference)
+- [FAQ](https://rsdickerson.github.io/pawmate-ai-challenge/faq)
+
+---
+
 ## Two Ways to Run Benchmarks
 
 ### Option 1: npm CLI (Recommended for Quick Start)
