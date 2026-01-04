@@ -29,7 +29,7 @@ git push origin main
 
 The site is configured for GitHub Pages at:
 ```
-https://rsdickerson.github.io/pawmate-ai-challenge/
+https://fastcraft-ai.github.io/pawmate-ai-challenge/
 ```
 
 The `base` is already set in `docs/.vitepress/config.ts`:
@@ -77,7 +77,7 @@ Add A records pointing to GitHub Pages IPs:
 **For subdomain (docs.pawmate.ai):**
 Add CNAME record:
 ```
-CNAME  docs  rsdickerson.github.io.
+CNAME  docs  fastcraft-ai.github.io.
 ```
 
 ### 3. Enable Custom Domain in GitHub
@@ -178,7 +178,7 @@ After deployment, your site will be available at:
 
 **GitHub Pages (default):**
 ```
-https://rsdickerson.github.io/pawmate-ai-challenge/
+https://fastcraft-ai.github.io/pawmate-ai-challenge/
 ```
 
 **Custom domain (if configured):**

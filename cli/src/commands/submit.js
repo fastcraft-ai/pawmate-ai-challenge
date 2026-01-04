@@ -150,7 +150,7 @@ export default async function submit(resultFile, options = {}) {
   console.log(chalk.green('✓'), chalk.bold('Thank you for submitting your benchmark results!'));
   console.log('');
   console.log(chalk.gray('Results will be reviewed and published at:'));
-  console.log(chalk.cyan('https://github.com/rsdickerson/pawmate-ai-results'));
+  console.log(chalk.cyan('https://github.com/fastcraft-ai/pawmate-ai-results'));
   console.log('');
 }
 

@@ -222,5 +222,5 @@ pawmate submit pawmate-run-*/benchmark/result.json
 
 - [FAQ](/faq) - Common questions and answers
 - [CLI Reference](/cli-reference) - All commands and options
-- [GitHub Issues](https://github.com/rsdickerson/pawmate-ai-challenge/issues) - Report problems or ask questions
+- [GitHub Issues](https://github.com/fastcraft-ai/pawmate-ai-challenge/issues) - Report problems or ask questions
 

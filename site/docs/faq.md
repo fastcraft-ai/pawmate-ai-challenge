@@ -155,7 +155,7 @@ The AI should request network permissions:
 required_permissions: ['network']
 ```
 
-See the [SANDBOX_SOLUTION.md](https://github.com/rsdickerson/pawmate-ai-challenge/blob/main/docs/SANDBOX_SOLUTION.md) doc for details.
+See the [SANDBOX_SOLUTION.md](https://github.com/fastcraft-ai/pawmate-ai-challenge/blob/main/docs/SANDBOX_SOLUTION.md) doc for details.
 
 ### Why SQLite instead of PostgreSQL?
 
@@ -268,7 +268,7 @@ Or use the shutdown script:
 
 ### Where can I see results?
 
-Visit the results repository: [github.com/rsdickerson/pawmate-ai-results](https://github.com/rsdickerson/pawmate-ai-results)
+Visit the results repository: [github.com/fastcraft-ai/pawmate-ai-results](https://github.com/fastcraft-ai/pawmate-ai-results)
 
 ### How are results verified?
 
@@ -296,7 +296,7 @@ See [Contributing](/contributing) for details.
 
 ### How do I report bugs?
 
-Open an issue: [github.com/rsdickerson/pawmate-ai-challenge/issues](https://github.com/rsdickerson/pawmate-ai-challenge/issues)
+Open an issue: [github.com/fastcraft-ai/pawmate-ai-challenge/issues](https://github.com/fastcraft-ai/pawmate-ai-challenge/issues)
 
 ### Can I suggest new features?
 
@@ -336,6 +336,6 @@ Contact the maintainers via the results repository to request removal.
 
 - **Check the docs:** [All documentation](/getting-started)
 - **CLI Reference:** [Command details](/cli-reference)
-- **GitHub Issues:** [Ask questions](https://github.com/rsdickerson/pawmate-ai-challenge/issues)
+- **GitHub Issues:** [Ask questions](https://github.com/fastcraft-ai/pawmate-ai-challenge/issues)
 - **Email:** pawmate.ai.challenge@gmail.com
 

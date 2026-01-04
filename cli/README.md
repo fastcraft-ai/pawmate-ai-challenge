@@ -139,7 +139,7 @@ pawmate submit result.json --github-token ghp_xxxxxxxxxxxx
    - Includes JSON result in email body
    - **You must click "Send" to complete submission**
 4. **GitHub submission (optional):**
-   - Creates issue in `rsdickerson/pawmate-ai-results`
+   - Creates issue in `fastcraft-ai/pawmate-ai-results`
    - Requires GitHub personal access token
    - Labels: `submission`, `results`
 
@@ -202,7 +202,7 @@ pawmate submit pawmate-run-*/benchmark/result.json
 ```
 
 Review and send the pre-filled email. Results will be published at:
-https://github.com/rsdickerson/pawmate-ai-results
+https://github.com/fastcraft-ai/pawmate-ai-results
 
 ## Key Features
 
@@ -256,8 +256,8 @@ Solution: Check your token has the `repo` scope and is valid.
 
 ## Resources
 
-- **Challenge Repository:** https://github.com/rsdickerson/pawmate-ai-challenge
-- **Results Repository:** https://github.com/rsdickerson/pawmate-ai-results
+- **Challenge Repository:** https://github.com/fastcraft-ai/pawmate-ai-challenge
+- **Results Repository:** https://github.com/fastcraft-ai/pawmate-ai-results
 - **Challenge Documentation:** See `docs/` in challenge repository
 - **npm Package:** https://www.npmjs.com/package/pawmate-ai-challenge
 
@@ -265,8 +265,8 @@ Solution: Check your token has the `repo` scope and is valid.
 
 For issues, questions, or contributions:
 
-- **Issues:** https://github.com/rsdickerson/pawmate-ai-challenge/issues
-- **Discussions:** https://github.com/rsdickerson/pawmate-ai-challenge/discussions
+- **Issues:** https://github.com/fastcraft-ai/pawmate-ai-challenge/issues
+- **Discussions:** https://github.com/fastcraft-ai/pawmate-ai-challenge/discussions
 
 ## License
 

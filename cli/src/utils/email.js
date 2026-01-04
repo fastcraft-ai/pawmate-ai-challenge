@@ -40,7 +40,7 @@ ${jsonContent}
 
 ---
 
-Generated using: https://github.com/rsdickerson/pawmate-ai-challenge
+Generated using: https://github.com/fastcraft-ai/pawmate-ai-challenge
 Submitted via: PawMate CLI
 `;
 }

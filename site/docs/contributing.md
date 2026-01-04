@@ -82,9 +82,8 @@ Found a bug? Let us know.
 - Error messages
 
 **Where:**
-- CLI bugs: [pawmate-ai-challenge/issues](https://github.com/rsdickerson/pawmate-ai-challenge/issues)
-- Results bugs: [pawmate-ai-results/issues](https://github.com/rsdickerson/pawmate-ai-results/issues)
-- Site bugs: [pawmate-site/issues](https://github.com/rsdickerson/pawmate-site/issues)
+- CLI bugs: [pawmate-ai-challenge/issues](https://github.com/fastcraft-ai/pawmate-ai-challenge/issues)
+- Results bugs: [pawmate-ai-results/issues](https://github.com/fastcraft-ai/pawmate-ai-results/issues)
 
 ### 6. Suggest Features
 
@@ -119,16 +118,9 @@ Have an idea? Share it!
 
 ### Clone the Repository
 
-**CLI and Spec:**
 ```bash
-git clone https://github.com/rsdickerson/pawmate-ai-challenge.git
+git clone https://github.com/fastcraft-ai/pawmate-ai-challenge.git
 cd pawmate-ai-challenge
-```
-
-**Documentation Site:**
-```bash
-git clone https://github.com/rsdickerson/pawmate-site.git
-cd pawmate-site
 ```
 
 ### Development Setup
@@ -393,9 +385,9 @@ Contributors are recognized:
 ## Questions?
 
 **Before contributing:**
-- Check [existing issues](https://github.com/rsdickerson/pawmate-ai-challenge/issues)
+- Check [existing issues](https://github.com/fastcraft-ai/pawmate-ai-challenge/issues)
 - Read the [documentation](/getting-started)
-- Review [past PRs](https://github.com/rsdickerson/pawmate-ai-challenge/pulls?q=is%3Apr+is%3Aclosed)
+- Review [past PRs](https://github.com/fastcraft-ai/pawmate-ai-challenge/pulls?q=is%3Apr+is%3Aclosed)
 
 **Need help?**
 - Open a GitHub issue
@@ -410,5 +402,5 @@ By contributing, you agree that your contributions will be licensed under the MI
 
 Every contribution helps make PawMate better. Whether you submit benchmarks, fix typos, or propose features, your help is appreciated.
 
-[Start contributing →](https://github.com/rsdickerson/pawmate-ai-challenge)
+[Start contributing →](https://github.com/fastcraft-ai/pawmate-ai-challenge)
 

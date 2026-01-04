@@ -159,7 +159,7 @@ npm publish
 ### Error: "package name already exists"
 
 If the package name is taken:
-1. Change `name` in `package.json` (e.g., `@rsdickerson/pawmate-ai-challenge`)
+1. Change `name` in `package.json` (e.g., `@fastcraft-ai/pawmate-ai-challenge`)
 2. Update documentation with the new package name
 3. Try publishing again
 
@@ -214,8 +214,8 @@ Check that `scripts/bundle-templates.js` is working correctly.
 
 After publishing:
 - **npm package:** https://www.npmjs.com/package/pawmate-ai-challenge
-- **GitHub repo:** https://github.com/rsdickerson/pawmate-ai-challenge
-- **CLI README:** https://github.com/rsdickerson/pawmate-ai-challenge/tree/main/cli
+- **GitHub repo:** https://github.com/fastcraft-ai/pawmate-ai-challenge
+- **CLI README:** https://github.com/fastcraft-ai/pawmate-ai-challenge/tree/main/cli
 
 ## Version Strategy
 

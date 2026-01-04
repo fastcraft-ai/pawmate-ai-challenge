@@ -337,8 +337,8 @@ This will create a GitHub issue in addition to opening the email client.
 
 ## Resources
 
-- **PawMate CLI Documentation**: https://github.com/rsdickerson/pawmate-ai-challenge/tree/main/cli
-- **Challenge Documentation**: https://github.com/rsdickerson/pawmate-ai-challenge
+- **PawMate CLI Documentation**: https://github.com/fastcraft-ai/pawmate-ai-challenge/tree/main/cli
+- **Challenge Documentation**: https://github.com/fastcraft-ai/pawmate-ai-challenge
 - **Result File Specification**: See challenge documentation
 
 ## Key Metrics to Include
