@@ -9,7 +9,7 @@ Before you begin, make sure you have:
 - **Node.js** version 18.0 or higher
 - **npm** (comes with Node.js)
 - An **AI coding assistant** to test (Cursor, GitHub Copilot, etc.)
-- **10-20 GB free disk space** (for Node modules and generated code)
+- **10-15 GB free disk space** (for Node modules and generated code)
 
 ### Check Your Node Version
 
