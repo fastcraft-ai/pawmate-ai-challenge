@@ -8,7 +8,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 CONFIG_FILE="$REPO_ROOT/.submission.config"
 CONFIG_TEMPLATE="$REPO_ROOT/.submission.config.template"
-GITHUB_REPO_OWNER="fastcraft-ai"
+GITHUB_REPO_OWNER="hstm-labs"
 GITHUB_REPO_NAME="pawmate-ai-results"
 GITHUB_API_URL="https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/issues"
 
@@ -202,7 +202,7 @@ ${json_content}
 
 ---
 
-Generated using: https://github.com/fastcraft-ai/pawmate-ai-challenge
+Generated using: https://github.com/hstm-labs/pawmate-ai-challenge
 "
     
     echo "$body"
@@ -250,7 +250,7 @@ Submitted by: {attribution}
 
 ---
 
-Generated using: https://github.com/fastcraft-ai/pawmate-ai-challenge
+Generated using: https://github.com/hstm-labs/pawmate-ai-challenge
 """
 
 payload = {

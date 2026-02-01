@@ -306,7 +306,7 @@ If you believe:
 - Results are incorrectly scored
 
 **Open a GitHub issue:**
-[github.com/fastcraft-ai/pawmate-ai-challenge/issues](https://github.com/fastcraft-ai/pawmate-ai-challenge/issues)
+[github.com/hstm-labs/pawmate-ai-challenge/issues](https://github.com/hstm-labs/pawmate-ai-challenge/issues)
 
 All disputes are resolved publicly and transparently.
 
@@ -320,11 +320,11 @@ Full specification available in the GitHub repository:
 - **Seed Data** - Deterministic dataset
 - **Benchmarking Method** - Measurement procedures
 
-[View full spec on GitHub →](https://github.com/fastcraft-ai/pawmate-ai-challenge/tree/main/docs)
+[View full spec on GitHub →](https://github.com/hstm-labs/pawmate-ai-challenge/tree/main/docs)
 
 ## Questions About Rules?
 
 - [FAQ](/faq) - Common questions
-- [GitHub Issues](https://github.com/fastcraft-ai/pawmate-ai-challenge/issues) - Ask questions
+- [GitHub Issues](https://github.com/hstm-labs/pawmate-ai-challenge/issues) - Ask questions
 - Email: pawmate.ai.challenge@gmail.com
 

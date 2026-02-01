@@ -127,7 +127,7 @@ pawmate submit pawmate-run-*/benchmark/result.json \
 
 ### What Gets Created
 
-The CLI creates a GitHub issue in [fastcraft-ai/pawmate-ai-results](https://github.com/fastcraft-ai/pawmate-ai-results) with:
+The CLI creates a GitHub issue in [hstm-labs/pawmate-ai-results](https://github.com/hstm-labs/pawmate-ai-results) with:
 
 - **Title:** `[Submission] Tool: YourAI, Model: A, API: REST, Run: 1`
 - **Labels:** `submission`, `results`
@@ -240,7 +240,7 @@ Results are typically published within:
 
 Visit the results repository:
 
-**GitHub:** [github.com/fastcraft-ai/pawmate-ai-results](https://github.com/fastcraft-ai/pawmate-ai-results)  
+**GitHub:** [github.com/hstm-labs/pawmate-ai-results](https://github.com/hstm-labs/pawmate-ai-results)  
 **Leaderboard:** See [View Results](/results) page
 
 ## Troubleshooting
@@ -274,7 +274,7 @@ Copy this and manually create an email.
 
 **404 Not Found:**
 - Repository doesn't exist or isn't accessible
-- Check: [github.com/fastcraft-ai/pawmate-ai-results](https://github.com/fastcraft-ai/pawmate-ai-results)
+- Check: [github.com/hstm-labs/pawmate-ai-results](https://github.com/hstm-labs/pawmate-ai-results)
 
 **422 Validation Error:**
 - Result data is malformed
@@ -385,5 +385,5 @@ After submitting:
 
 - [FAQ](/faq) - Common questions
 - [CLI Reference](/cli-reference) - Command details
-- [GitHub Issues](https://github.com/fastcraft-ai/pawmate-ai-challenge/issues) - Report problems
+- [GitHub Issues](https://github.com/hstm-labs/pawmate-ai-challenge/issues) - Report problems
 

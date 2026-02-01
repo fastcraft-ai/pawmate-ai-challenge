@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { extractField } from './validation.js';
 
-const GITHUB_API_URL = 'https://api.github.com/repos/fastcraft-ai/pawmate-ai-results/issues';
+const GITHUB_API_URL = 'https://api.github.com/repos/hstm-labs/pawmate-ai-results/issues';
 
 /**
  * Generate GitHub issue title from result data
@@ -39,7 +39,7 @@ ${jsonContent}
 
 ---
 
-Generated using: https://github.com/fastcraft-ai/pawmate-ai-challenge
+Generated using: https://github.com/hstm-labs/pawmate-ai-challenge
 `;
 }
 
@@ -117,7 +117,7 @@ export async function createGitHubIssue(resultFilePath, data, attribution, token
         console.log(chalk.blue('ℹ'), 'Create a token at: https://github.com/settings/tokens');
       } else if (response.status === 404) {
         console.log('');
-        console.log(chalk.yellow('⚠'), 'Repository not found: fastcraft-ai/pawmate-ai-results');
+        console.log(chalk.yellow('⚠'), 'Repository not found: hstm-labs/pawmate-ai-results');
         console.log(chalk.blue('ℹ'), 'Please verify the repository exists and is accessible');
       } else if (response.status === 422) {
         console.log('');

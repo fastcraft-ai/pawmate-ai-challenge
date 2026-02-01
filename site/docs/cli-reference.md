@@ -432,5 +432,5 @@ For more information:
 - [Run Benchmark Workflow](/run-benchmark)
 - [Submit Results Guide](/submit-results)
 - [FAQ](/faq)
-- [GitHub Issues](https://github.com/fastcraft-ai/pawmate-ai-challenge/issues)
+- [GitHub Issues](https://github.com/hstm-labs/pawmate-ai-challenge/issues)
 

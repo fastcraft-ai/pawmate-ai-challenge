@@ -437,5 +437,5 @@ pawmate init --profile model-a-rest --tool "Cursor" \
 
 - [FAQ](/faq) - Common questions
 - [CLI Reference](/cli-reference) - All commands
-- [GitHub Issues](https://github.com/fastcraft-ai/pawmate-ai-challenge/issues) - Report problems
+- [GitHub Issues](https://github.com/hstm-labs/pawmate-ai-challenge/issues) - Report problems
 

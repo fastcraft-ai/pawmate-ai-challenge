@@ -100,7 +100,7 @@ If you want to use `pawmate.ai` or similar:
 
 2. Configure DNS:
    - **Apex domain:** Add A records to GitHub Pages IPs
-   - **Subdomain:** Add CNAME to `fastcraft-ai.github.io`
+   - **Subdomain:** Add CNAME to `hstm-labs.github.io`
 
 3. Enable in GitHub Settings → Pages
 
@@ -116,7 +116,7 @@ Add a prominent link to the docs site in:
 ```markdown
 ## 📚 Documentation
 
-**Full documentation:** https://pawmate.ai (or https://fastcraft-ai.github.io/pawmate-site/)
+**Full documentation:** https://pawmate.ai (or https://hstm-labs.github.io/pawmate-site/)
 
 Quick links:
 - [Getting Started](https://pawmate.ai/getting-started)
@@ -133,7 +133,7 @@ Add homepage URL in:
 {
   "homepage": "https://pawmate.ai",
   "bugs": {
-    "url": "https://github.com/fastcraft-ai/pawmate-ai-challenge/issues"
+    "url": "https://github.com/hstm-labs/pawmate-ai-challenge/issues"
   }
 }
 ```

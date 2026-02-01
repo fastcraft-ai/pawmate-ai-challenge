@@ -11,7 +11,7 @@ hero:
       link: /getting-started
     - theme: alt
       text: View on GitHub
-      link: https://github.com/fastcraft-ai/pawmate-ai-challenge
+      link: https://github.com/hstm-labs/pawmate-ai-challenge
   image:
     src: /logo.png
     alt: PawMate
@@ -189,5 +189,5 @@ pawmate submit pawmate-run-*/benchmark/result.json
 
 ## Questions?
 
-Check out the [FAQ](/faq) or [view the spec on GitHub](https://github.com/fastcraft-ai/pawmate-ai-challenge).
+Check out the [FAQ](/faq) or [view the spec on GitHub](https://github.com/hstm-labs/pawmate-ai-challenge).
 

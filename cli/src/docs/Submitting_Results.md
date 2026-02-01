@@ -4,7 +4,7 @@
 
 This guide explains how to submit benchmark results for inclusion in the comparison database. External developers submit results via email, while maintainers with repo access can use git-based submission.
 
-**Viewing Results**: After submission, aggregated results are published in the [`pawmate-ai-results`](https://github.com/fastcraft-ai/pawmate-ai-results) repository. See the [Viewing Aggregated Results](#viewing-aggregated-results) section below for details.
+**Viewing Results**: After submission, aggregated results are published in the [`pawmate-ai-results`](https://github.com/hstm-labs/pawmate-ai-results) repository. See the [Viewing Aggregated Results](#viewing-aggregated-results) section below for details.
 
 ## Quick Submit (Recommended for External Developers)
 
@@ -249,7 +249,7 @@ After submitting your results, you can view aggregated results and comparisons i
 ### Repository Location
 
 **GitHub Repository**: `pawmate-ai-results`  
-**URL**: `https://github.com/fastcraft-ai/pawmate-ai-results` (or your configured results repository)
+**URL**: `https://github.com/hstm-labs/pawmate-ai-results` (or your configured results repository)
 
 ### What's Available
 
@@ -265,11 +265,11 @@ The results repository contains:
 1. **Browse on GitHub**: Visit the repository to view individual result files and compiled reports
 2. **GitHub Pages** (if enabled): View an interactive dashboard at:
    ```
-   https://fastcraft-ai.github.io/pawmate-ai-results/
+   https://hstm-labs.github.io/pawmate-ai-results/
    ```
 3. **Clone Locally**: Clone the repository to analyze results locally:
    ```bash
-   git clone https://github.com/fastcraft-ai/pawmate-ai-results.git
+   git clone https://github.com/hstm-labs/pawmate-ai-results.git
    cd pawmate-ai-results
    ```
 

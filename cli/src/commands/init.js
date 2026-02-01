@@ -110,7 +110,7 @@ function displayBanner(version = '1.0.0') {
     const taglineLine = centerLine(chalk.gray(tagline), tagline.length)
 
     // GitHub link centered
-    const link = 'github.com/fastcraft-ai/pawmate-ai-challenge'
+    const link = 'github.com/hstm-labs/pawmate-ai-challenge'
     const linkLine = centerLine(chalk.cyan.underline(link), link.length)
 
     const lines = [
@@ -617,8 +617,8 @@ This will create a GitHub issue in addition to opening the email client.
 
 ## Resources
 
-- **PawMate CLI Documentation**: https://github.com/fastcraft-ai/pawmate-ai-challenge/tree/main/cli
-- **Challenge Documentation**: https://github.com/fastcraft-ai/pawmate-ai-challenge
+- **PawMate CLI Documentation**: https://github.com/hstm-labs/pawmate-ai-challenge/tree/main/cli
+- **Challenge Documentation**: https://github.com/hstm-labs/pawmate-ai-challenge
 - **Result File Specification**: See challenge documentation
 
 ## Key Metrics to Include

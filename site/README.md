@@ -23,7 +23,7 @@ npm run docs:preview
 
 **Repository:** Part of `pawmate-ai-challenge` repository  
 **Directory:** `/site/`  
-**Live URL:** https://fastcraft-ai.github.io/pawmate-ai-challenge/
+**Live URL:** https://hstm-labs.github.io/pawmate-ai-challenge/
 
 ## Structure
 

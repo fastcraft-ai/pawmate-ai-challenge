@@ -6,7 +6,7 @@ Explore benchmark results and leaderboards.
 
 All submitted results are published in the public results repository:
 
-**GitHub:** [github.com/fastcraft-ai/pawmate-ai-results](https://github.com/fastcraft-ai/pawmate-ai-results)
+**GitHub:** [github.com/hstm-labs/pawmate-ai-results](https://github.com/hstm-labs/pawmate-ai-results)
 
 ## What's Available
 
@@ -270,7 +270,7 @@ Browse all results:
 
 ```bash
 # Clone the results repository
-git clone https://github.com/fastcraft-ai/pawmate-ai-results.git
+git clone https://github.com/hstm-labs/pawmate-ai-results.git
 cd pawmate-ai-results
 
 # View submitted results
@@ -306,7 +306,7 @@ Planned features:
 ## Questions About Results?
 
 - [Submit your own results](/submit-results)
-- [View the repository](https://github.com/fastcraft-ai/pawmate-ai-results)
-- [Open an issue](https://github.com/fastcraft-ai/pawmate-ai-results/issues)
+- [View the repository](https://github.com/hstm-labs/pawmate-ai-results)
+- [Open an issue](https://github.com/hstm-labs/pawmate-ai-results/issues)
 - Email: pawmate.ai.challenge@gmail.com
 

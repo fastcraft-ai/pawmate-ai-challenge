@@ -14,14 +14,14 @@ This is **not** an application implementation. The AI tool you're testing will g
 
 ## 📚 Documentation
 
-**Complete documentation:** https://fastcraft-ai.github.io/pawmate-ai-challenge/
+**Complete documentation:** https://hstm-labs.github.io/pawmate-ai-challenge/
 
 Quick links:
-- [Getting Started](https://fastcraft-ai.github.io/pawmate-ai-challenge/getting-started)
-- [Run Benchmark](https://fastcraft-ai.github.io/pawmate-ai-challenge/run-benchmark)
-- [Submit Results](https://fastcraft-ai.github.io/pawmate-ai-challenge/submit-results)
-- [CLI Reference](https://fastcraft-ai.github.io/pawmate-ai-challenge/cli-reference)
-- [FAQ](https://fastcraft-ai.github.io/pawmate-ai-challenge/faq)
+- [Getting Started](https://hstm-labs.github.io/pawmate-ai-challenge/getting-started)
+- [Run Benchmark](https://hstm-labs.github.io/pawmate-ai-challenge/run-benchmark)
+- [Submit Results](https://hstm-labs.github.io/pawmate-ai-challenge/submit-results)
+- [CLI Reference](https://hstm-labs.github.io/pawmate-ai-challenge/cli-reference)
+- [FAQ](https://hstm-labs.github.io/pawmate-ai-challenge/faq)
 
 ---
 
@@ -56,7 +56,7 @@ pawmate submit .pawmate-run-*/benchmark/result.json
 Clone the repo for full access to docs, scripts, and spec files:
 
 ```bash
-git clone https://github.com/fastcraft-ai/pawmate-ai-challenge.git
+git clone https://github.com/hstm-labs/pawmate-ai-challenge.git
 cd pawmate-ai-challenge
 ./scripts/initialize_run.sh --profile model-a-rest --tool "YourTool"
 ```
@@ -161,8 +161,8 @@ See [`docs/Submitting_Results.md`](docs/Submitting_Results.md) for detailed subm
 After submitting your results, view aggregated results and comparisons:
 
 **Results Repository**: `pawmate-ai-results`  
-**GitHub**: `https://github.com/fastcraft-ai/pawmate-ai-results`  
-**GitHub Pages** (if enabled): `https://fastcraft-ai.github.io/pawmate-ai-results/`
+**GitHub**: `https://github.com/hstm-labs/pawmate-ai-results`  
+**GitHub Pages** (if enabled): `https://hstm-labs.github.io/pawmate-ai-results/`
 
 The results repository contains:
 - Individual submitted result files
