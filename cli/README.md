@@ -8,7 +8,7 @@ A command-line tool for initializing and submitting PawMate AI benchmark runs. I
 
 ```bash
 # Install globally
-npm install -g @fastcraft/pawmate-ai-challenge
+npm install -g @hstm-labs/pawmate-ai-challenge
 
 # Create a project directory
 mkdir my-pawmate-benchmark
@@ -36,9 +36,9 @@ pawmate submit pawmate-run-*/benchmark/result.json
 
 | Approach | Installation | Running Commands |
 |----------|-------------|------------------|
-| **Global** | `npm install -g @fastcraft/pawmate-ai-challenge` | `pawmate init ...`<br>`pawmate submit ...` |
-| **Local** | `npm install @fastcraft/pawmate-ai-challenge` | `npx pawmate init ...`<br>`npx pawmate submit ...` |
-| **On-Demand** | _(none)_ | `npx @fastcraft/pawmate-ai-challenge init ...`<br>`npx @fastcraft/pawmate-ai-challenge submit ...` |
+| **Global** | `npm install -g @hstm-labs/pawmate-ai-challenge` | `pawmate init ...`<br>`pawmate submit ...` |
+| **Local** | `npm install @hstm-labs/pawmate-ai-challenge` | `npx pawmate init ...`<br>`npx pawmate submit ...` |
+| **On-Demand** | _(none)_ | `npx @hstm-labs/pawmate-ai-challenge init ...`<br>`npx @hstm-labs/pawmate-ai-challenge submit ...` |
 
 ## Installation
 
@@ -49,7 +49,7 @@ Choose one of three approaches based on your preference:
 Install once, use the `pawmate` command anywhere.
 
 ```bash
-npm install -g @fastcraft/pawmate-ai-challenge
+npm install -g @hstm-labs/pawmate-ai-challenge
 ```
 
 After installation, the `pawmate` command is available system-wide:
@@ -64,7 +64,7 @@ pawmate submit result.json
 Install in your project directory and use `npx` to run commands.
 
 ```bash
-npm install @fastcraft/pawmate-ai-challenge
+npm install @hstm-labs/pawmate-ai-challenge
 ```
 
 Run commands using `npx pawmate`:
@@ -81,8 +81,8 @@ npx pawmate submit result.json
 Download and run temporarily without installing.
 
 ```bash
-npx @fastcraft/pawmate-ai-challenge init --profile model-a-rest --tool "Cursor"
-npx @fastcraft/pawmate-ai-challenge submit result.json
+npx @hstm-labs/pawmate-ai-challenge init --profile model-a-rest --tool "Cursor"
+npx @hstm-labs/pawmate-ai-challenge submit result.json
 ```
 
 This downloads the package on-demand and runs it without saving to your system.
@@ -136,7 +136,7 @@ pawmate init
 pawmate init --profile model-a-rest --tool "Cursor" --tool-ver "v0.43.1"
 ```
 
-> **Local/On-Demand:** Use `npx pawmate init` (local) or `npx @fastcraft/pawmate-ai-challenge init` (on-demand)
+> **Local/On-Demand:** Use `npx pawmate init` (local) or `npx @hstm-labs/pawmate-ai-challenge init` (on-demand)
 
 **What it creates:**
 
@@ -180,7 +180,7 @@ pawmate submit pawmate-run-*/benchmark/result.json
 pawmate submit result.json --github-token ghp_xxxxxxxxxxxx
 ```
 
-> **Local/On-Demand:** Replace `pawmate` with `npx pawmate` (local) or `npx @fastcraft/pawmate-ai-challenge` (on-demand)
+> **Local/On-Demand:** Replace `pawmate` with `npx pawmate` (local) or `npx @hstm-labs/pawmate-ai-challenge` (on-demand)
 
 **What it does:**
 
@@ -297,10 +297,10 @@ If you get this error, it means the `pawmate` command isn't in your system PATH.
 npx pawmate init --profile model-a-rest --tool "Cursor"
 
 # Option 2: Use npx without installation (on-demand)
-npx @fastcraft/pawmate-ai-challenge init --profile model-a-rest --tool "Cursor"
+npx @hstm-labs/pawmate-ai-challenge init --profile model-a-rest --tool "Cursor"
 
 # Option 3: Install globally to use 'pawmate' directly
-npm install -g @fastcraft/pawmate-ai-challenge
+npm install -g @hstm-labs/pawmate-ai-challenge
 pawmate init --profile model-a-rest --tool "Cursor"
 ```
 
